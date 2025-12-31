@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+@import "flowbite/src/themes/default";
+
+
+body {
+  color: color-mix(in oklab, var(--color-base-content) 80%, transparent);
+}
+
+[data-theme='dark'] li:not(.menu-title, .menu-disabled) > :not(ul, .menu-title, .collapse, .accordion-content, .btn).menu-active {
+  background-color: var(--color-primary);
+  color: var(--color-primary-content);
+}
+
