@@ -107,7 +107,8 @@ const navigation = ref([
     dropdown: [
       { name: 'Create Product', href: '#' },
       { name: 'Create Blog', href: '#' },
-      { name: 'View Contact Request', href: '#' }
+      { name: 'View Contact Request', href: '#' },
+      { name: 'Create Categories', href: '#' }
     ]
   },
   { 
@@ -135,6 +136,15 @@ const navigation = ref([
     dropdown: [
       { name: 'View Contact Request', href: '#' },
       { name: 'View Form', href: '#' }
+    ]
+  },
+  { 
+    name: 'Categories', 
+    href: '#', 
+    current: false,
+    dropdown: [
+      { name: 'View Categories', href: '#' },
+      { name: 'Create Categories', href: '#' }
     ]
   }
 ])
