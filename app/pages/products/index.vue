@@ -5,7 +5,7 @@
     <br/>
     <Categories />
     <ProductCategory />
-    <Categories />
+    <Categories type="product"/>
     <Footer />
 </template>
 

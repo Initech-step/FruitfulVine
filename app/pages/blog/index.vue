@@ -71,7 +71,7 @@
 
         <Categories />
         <HomePageBlog />
-        <Categories />
+        <Categories type="blog"/>
         <Footer />
     </div>
 </template>
