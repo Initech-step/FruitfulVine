@@ -3,7 +3,7 @@
     <br/>
     <br/>
     <br/>
-    <Categories />
+    <Categories type="product"/>
     <ProductCategory />
     <Categories type="product"/>
     <Footer />
