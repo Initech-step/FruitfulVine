@@ -134,8 +134,7 @@ const navigation = ref([
     href: '#', 
     current: false,
     dropdown: [
-      { name: 'View Contact Request', href: '#' },
-      { name: 'View Form', href: '#' }
+      { name: 'View Contact Request', href: 'http://localhost:3000/admin/contact/' },
     ]
   },
   { 

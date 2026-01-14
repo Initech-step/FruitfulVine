@@ -51,7 +51,7 @@
               @drop.prevent="handleDrop"
               :class="{ 'border-red-600 border-2 shadow-2xl': dragOver && isEditing }"
             >
-              <img :src="imagePreview || post.image_url" class="size-full object-cover" alt="Featured Image" />
+              <img :src="imagePreview || post.secure_url" class="size-full object-cover" alt="Featured Image" />
               
               <div v-if="isEditing" @click="$refs.fileInput.click()" class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
                 <span class="icon-[tabler--photo-up] size-10 text-white mb-2"></span>
@@ -103,20 +103,6 @@
               </h3>
 
               <div class="space-y-8">
-                <div class="form-control">
-                  <label class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-3 block">Category Mapping</label>
-                  <div class="grid grid-cols-2 gap-4">
-                    <div v-if="!isEditing" class="text-sm font-bold py-2 border-b border-white/10">{{ post.category_name }}</div>
-                    <select v-else v-model="post.category_name" class="bg-white/10 border border-white/20 rounded-xl px-4 py-2 text-xs font-bold focus:border-red-600 outline-none">
-                      <option class="text-black" value="Design">Design</option>
-                      <option class="text-black" value="Tech">Tech</option>
-                    </select>
-
-                    <div v-if="!isEditing" class="text-sm font-bold py-2 border-b border-white/10">{{ post.category_id }}</div>
-                    <input v-else v-model="post.category_id" class="bg-white/10 border border-white/20 rounded-xl px-4 py-2 text-xs font-bold focus:border-red-600 outline-none" placeholder="ID" />
-                  </div>
-                </div>
-
                 <div class="form-control">
                   <label class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-3 block">Publishing Timeline</label>
                   <div v-if="!isEditing" class="text-sm font-bold flex items-center gap-2">
@@ -170,9 +156,7 @@ const imagePreview = ref<string | null>(null)
 const notification = reactive({ show: false, message: '', isError: false })
 
 const post = reactive({
-  image_url: '',
-  category_id: '',
-  category_name: '',
+  secure_url: '',
   post_title: '',
   short_title: '',
   body: '',
@@ -222,8 +206,6 @@ const savePost = async () => {
   const formData = new FormData()
   
   // Append fields (matching Optional[str] = Form(None))
-  formData.append('category_id', post.category_id)
-  formData.append('category_name', post.category_name)
   formData.append('post_title', post.post_title)
   formData.append('short_title', post.short_title)
   formData.append('body', post.body)
