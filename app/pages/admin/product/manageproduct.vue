@@ -60,7 +60,7 @@
               <td class="px-6 py-4">
                 <div class="flex items-center gap-4">
                   <div class="size-14 rounded-xl overflow-hidden bg-gray-100 border border-gray-100 shrink-0">
-                    <img :src="product.secure_url || product.url" class="size-full object-cover" alt="Thumbnail" />
+                    <img :src="product[0]?.secure_url || product[0]?.url" class="size-full object-cover" alt="Thumbnail" />
                   </div>
                   <div>
                     <div class="text-sm font-black text-black leading-none mb-1 group-hover:text-red-600 transition-colors">{{ product.product_name }}</div>

@@ -27,28 +27,29 @@
         
         <div class="lg:col-span-8 space-y-10">
           <div class="form-control">
-            <label class="text-xs font-black uppercase tracking-widest text-black mb-3 block">Product Featured Image</label>
-            <div 
-              @dragover.prevent="dragOver = true"
-              @dragleave.prevent="dragOver = false"
-              @drop.prevent="handleDrop"
-              @click="$refs.fileInput.click()"
-              :class="[dragOver ? 'border-red-600 bg-red-50' : 'border-gray-200 bg-gray-50', 'relative h-64 border-2 border-dashed rounded-[2.5rem] transition-all cursor-pointer overflow-hidden group flex flex-col items-center justify-center text-center px-6']"
-            >
-              <input type="file" ref="fileInput" class="hidden" accept="image/*" @change="handleFileSelect" />
-              
-              <template v-if="!imagePreview">
-                <span class="icon-[tabler--photo-up] size-10 text-gray-300 group-hover:text-red-600 transition-colors mb-2"></span>
-                <p class="text-[10px] font-black uppercase tracking-widest text-gray-400">Drag & Drop or click to upload</p>
-              </template>
-              
-              <template v-else>
-                <img :src="imagePreview" class="absolute inset-0 size-full object-cover" />
-                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                  <p class="text-[10px] font-black uppercase tracking-widest text-white">Click to change image</p>
-                </div>
-              </template>
+            <label class="text-xs font-black uppercase tracking-widest text-black mb-3 block">Product Gallery (Multi-Upload)</label>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+              <div v-for="(src, idx) in imagePreviews" :key="idx" class="relative aspect-square rounded-3xl overflow-hidden border border-gray-100 group">
+                <img :src="src" class="size-full object-cover" />
+                <button @click.stop="removeFile(idx)" type="button" class="absolute top-2 right-2 size-6 bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span class="icon-[tabler--x] size-4"></span>
+                </button>
+              </div>
+
+              <div 
+                @dragover.prevent="dragOver = true"
+                @dragleave.prevent="dragOver = false"
+                @drop.prevent="handleDrop"
+                @click="$refs.fileInput.click()"
+                :class="[dragOver ? 'border-red-600 bg-red-50' : 'border-gray-200 bg-gray-50', 'relative aspect-square border-2 border-dashed rounded-[2.5rem] transition-all cursor-pointer overflow-hidden group flex flex-col items-center justify-center text-center px-4']"
+              >
+                <input type="file" ref="fileInput" class="hidden" accept="image/*" multiple @change="handleFileSelect" />
+                <span class="icon-[tabler--plus] size-8 text-gray-300 group-hover:text-red-600 transition-colors mb-1"></span>
+                <p class="text-[8px] font-black uppercase tracking-widest text-gray-400">Add Assets</p>
+              </div>
             </div>
+            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Supports PNG, JPG, WEBP • Max 10 files</p>
           </div>
 
           <div class="form-control">
@@ -127,7 +128,7 @@
               :disabled="loading"
               class="w-full bg-red-600 hover:bg-black text-white font-black py-5 rounded-full transition-all duration-300 shadow-xl hover:shadow-red-600/20 uppercase tracking-[0.2em] text-xs disabled:opacity-50"
             >
-              {{ loading ? 'Uploading Product...' : 'Save Product' }}
+              {{ loading ? `Uploading ${imageFiles.length} Assets...` : 'Save Product' }}
             </button>
             <button @click="goBack" type="button" class="w-full mt-4 text-gray-400 hover:text-red-600 font-bold py-2 text-xs uppercase tracking-widest transition-colors">
               Cancel Draft
@@ -148,8 +149,11 @@ const loading = ref(false)
 const dragOver = ref(false)
 const datePicker = ref<HTMLInputElement | null>(null)
 const fileInput = ref<HTMLInputElement | null>(null)
-const imageFile = ref<File | null>(null)
-const imagePreview = ref<string | null>(null)
+
+// NEW: Store arrays for multiple files
+const imageFiles = ref<File[]>([])
+const imagePreviews = ref<string[]>([])
+
 const categoryList = ref<{_id: string, name: string}[]>([])
 const notification = reactive({ show: false, message: '', isError: false })
 
@@ -184,25 +188,34 @@ const syncCategoryName = () => {
   if (selected) form.category_name = selected.name
 }
 
+// NEW: Logic to handle multiple file selection
 const handleFileSelect = (e: any) => {
-  const file = e.target.files[0]
-  if (file) setFile(file)
+  const files = Array.from(e.target.files) as File[]
+  addFiles(files)
 }
 
 const handleDrop = (e: DragEvent) => {
   dragOver.value = false
-  const file = e.dataTransfer?.files[0]
-  if (file && file.type.startsWith('image/')) setFile(file)
+  const files = Array.from(e.dataTransfer?.files || []) as File[]
+  const validImages = files.filter(f => f.type.startsWith('image/'))
+  addFiles(validImages)
 }
 
-const setFile = (file: File) => {
-  imageFile.value = file
-  imagePreview.value = URL.createObjectURL(file)
+const addFiles = (files: File[]) => {
+  files.forEach(file => {
+    imageFiles.value.push(file)
+    imagePreviews.value.push(URL.createObjectURL(file))
+  })
+}
+
+const removeFile = (index: number) => {
+  imageFiles.value.splice(index, 1)
+  imagePreviews.value.splice(index, 1)
 }
 
 const handleProductSubmit = async () => {
-  if (!imageFile.value) {
-    triggerNotification('Please upload a product image', true)
+  if (imageFiles.value.length === 0) {
+    triggerNotification('At least one product image is required', true)
     return
   }
 
@@ -215,7 +228,11 @@ const handleProductSubmit = async () => {
   formData.append('short_description', form.short_description)
   formData.append('body', form.body)
   formData.append('draft', String(form.draft))
-  formData.append('image', imageFile.value)
+  
+  // NEW: Append multiple files to the same key 'images'
+  imageFiles.value.forEach(file => {
+    formData.append('images', file)
+  })
 
   try {
     const res = await fetch('http://127.0.0.1:8000/api/product/', {
@@ -228,7 +245,7 @@ const handleProductSubmit = async () => {
 
     const data = await res.json()
     if (data.status) {
-      triggerNotification('Product added to catalog', false)
+      triggerNotification(`${imageFiles.value.length} assets uploaded successfully`, false)
       setTimeout(() => window.history.back(), 1500)
     } else {
       throw new Error()
