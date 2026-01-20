@@ -6,10 +6,10 @@
         <header class="mb-8 lg:mb-12 not-format">
           <address class="flex items-center mb-8 not-italic">
             <div class="inline-flex items-center mr-3 text-sm text-black">
-              <img class="mr-4 w-16 h-16 rounded-full border-2 border-red-600 p-0.5" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Jese Leos">
+              <img class="mr-4 w-16 h-16 rounded-full border-2 border-red-600 p-0.5" src="https://res.cloudinary.com/dhsnrwwwn/image/upload/v1768928451/FRUITFULL_LOGO-4_vujajv.png" alt="Jese Leos">
               <div>
-                <a href="#" rel="author" class="text-xl font-bold text-black hover:text-red-600 transition-colors">Jese Leos</a>
-                <p class="text-base text-gray-500">Graphic Designer, educator & CEO Flowbite</p>
+                <a href="#" rel="author" class="text-xl font-bold text-black hover:text-red-600 transition-colors">FruitFul Vine</a>
+                <p class="text-base text-gray-500">Editorial Team</p>
                 <p class="text-sm text-gray-400 font-medium uppercase tracking-wider">
                   <time pubdate datetime="2022-02-08" title="February 8th, 2022">Feb. 8, 2022</time>
                 </p>
@@ -52,66 +52,10 @@
             </li>
           </ul>
         </div>
-
-        <section class="not-format mt-20 pt-10 border-t border-gray-100">
-          <div class="flex justify-between items-center mb-8">
-            <h2 class="text-2xl lg:text-3xl font-bold text-black">Discussion <span class="text-red-600">(20)</span></h2>
-          </div>
-          
-          <form class="mb-10">
-            <div class="py-4 px-6 mb-4 bg-gray-50 rounded-2xl border border-gray-100 focus-within:border-red-600 transition-all">
-              <label for="comment" class="sr-only">Your comment</label>
-              <textarea id="comment" rows="4" class="w-full text-sm text-black border-0 focus:ring-0 bg-transparent placeholder-gray-400" placeholder="Write a professional comment..." required></textarea>
-            </div>
-            <button type="submit" class="inline-flex items-center py-3 px-8 text-sm font-bold text-center text-white bg-black hover:bg-red-600 rounded-full transition-all duration-300 shadow-lg uppercase tracking-widest">
-              Post comment
-            </button>
-          </form>
-
-          <article class="p-8 mb-6 text-base bg-white border border-gray-100 rounded-3xl shadow-sm">
-            <footer class="flex justify-between items-center mb-4">
-              <div class="flex items-center">
-                <p class="inline-flex items-center mr-3 font-bold text-black text-sm">
-                  <img class="mr-3 w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Michael Gough">
-                  Michael Gough
-                </p>
-                <p class="text-xs text-gray-400 font-medium">Feb. 8, 2022</p>
-              </div>
-            </footer>
-            <p class="text-gray-600 leading-relaxed">Very straight-to-point article. Really worth time reading. Thank you!</p>
-            <div class="flex items-center mt-6">
-              <button type="button" class="flex items-center text-xs font-bold text-red-600 uppercase tracking-tighter hover:underline">
-                <span class="icon-[tabler--message-circle] mr-2 size-4"></span> Reply
-              </button>
-            </div>
-          </article>
-        </section>
       </article>
     </div>
   </main>
 
-  <aside aria-label="Related articles" class="py-20 bg-gray-50">
-    <div class="px-6 mx-auto max-w-screen-xl">
-      <div class="flex items-center gap-4 mb-12">
-        <div class="h-1 w-12 bg-red-600"></div>
-        <h2 class="text-3xl font-bold text-black">Related Articles</h2>
-      </div>
-      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        <article v-for="i in 4" :key="i" class="group bg-white p-4 rounded-3xl border border-transparent hover:border-red-600 transition-all duration-500">
-          <a href="#" class="block overflow-hidden rounded-2xl mb-6">
-            <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/article/blog-1.png" class="w-full transform group-hover:scale-105 transition-transform duration-500" alt="Image">
-          </a>
-          <h3 class="mb-3 text-xl font-bold leading-tight text-black group-hover:text-red-600 transition-colors">
-            <a href="#">Enterprise design tips</a>
-          </h3>
-          <p class="mb-5 text-gray-500 text-sm line-clamp-2">Exploring the intersections of brand identity and user interface design in 2025.</p>
-          <a href="#" class="inline-flex items-center font-bold text-xs uppercase tracking-widest text-black hover:text-red-600 transition-colors">
-            Read Article <span class="icon-[tabler--arrow-right] ml-2"></span>
-          </a>
-        </article>
-      </div>
-    </div>
-  </aside>
 </template>
 
 <style scoped>

@@ -79,14 +79,6 @@
       </DisclosurePanel>
     </Disclosure>
 
-    <header class="bg-gray-300 py-10">
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center gap-4">
-        <div class="h-10 w-1.5 bg-red-600"></div>
-        <h1 class="text-4xl font-black tracking-tighter text-black uppercase">
-          {{ activePageName }}
-        </h1>
-      </div>
-    </header>
   </div>
 </template>
 

@@ -5,7 +5,7 @@
       <HeroSection />
       <OurServices />
       <ProductCategory />
-      <HomePageBlog />
+      <HomePageBlog no_blog_posts="6"/>
       <ContactSection />
       <Footer />
     </main>
@@ -15,9 +15,9 @@
 <script setup lang="ts">
   import '@tailwindplus/elements';
 useHead({
-  title: 'Restaurant - Landing Page',
+  title: 'Fruitful Vine',
   meta: [
-    { name: 'description', content: 'Savor every bite, savor every moment at our restaurant' }
+    { name: 'description', content: 'Phone Care Experts' }
   ]
 })
 </script>

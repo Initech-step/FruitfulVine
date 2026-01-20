@@ -4,8 +4,8 @@
         <!-- Logo -->
         <div class="flex lg:flex-1">
           <a href="#" class="-m-1.5 p-1.5 flex items-center space-x-3 group">
-            <div class="relative h-11 w-11 rounded-xl bg-gradient-to-br from-red-600 via-red-600 to-red-700 flex items-center justify-center transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-red-500/30 shadow-md">
-              <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=white&shade=500" alt="FruitFul Vine" class="h-6 w-auto" />
+            <div class="relative h-15 w-15 rounded-xl bg-gray-200 items-center justify-center transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:shadow-red-500/30 shadow-md">
+              <img src="https://res.cloudinary.com/dhsnrwwwn/image/upload/v1767946316/photo_2026-01-08_23-27-47-removebg-preview_isg5cj.png" alt="FruitFul Vine" class="h-15 w-auto" />
               <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </div>
             <div class="hidden sm:block">
