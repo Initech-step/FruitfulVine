@@ -4,7 +4,7 @@
     <main>
       <HeroSection />
       <OurServices />
-      <ProductCategory />
+      <ProductCategory no_of_products="6"/>
       <HomePageBlog no_blog_posts="6"/>
       <ContactSection />
       <Footer />
