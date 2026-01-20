@@ -178,7 +178,10 @@
 
           <!-- CTA Buttons -->
           <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="#" class="group relative w-full sm:w-auto rounded-xl bg-gradient-to-r from-red-600 to-red-700 px-8 py-4 text-base font-bold text-white shadow-lg shadow-red-500/40 hover:shadow-xl hover:shadow-red-500/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 transition-all duration-300 hover:scale-105 overflow-hidden">
+            <NuxtLink 
+              to="/products" 
+              class="group relative w-full sm:w-auto rounded-xl bg-gradient-to-r from-red-600 to-red-700 px-8 py-4 text-base font-bold text-white shadow-lg shadow-red-500/40 hover:shadow-xl hover:shadow-red-500/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 transition-all duration-300 hover:scale-105 overflow-hidden"
+            >
               <span class="relative z-10 flex items-center justify-center">
                 Browse Products
                 <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -186,14 +189,17 @@
                 </svg>
               </span>
               <div class="absolute inset-0 bg-gradient-to-r from-red-700 to-red-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </a>
-            
-            <a href="#" class="group w-full sm:w-auto rounded-xl bg-white border-2 border-gray-200 px-8 py-4 text-base font-bold text-gray-900 hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 flex items-center justify-center space-x-2 shadow-sm hover:shadow-md">
+            </NuxtLink>
+  
+            <NuxtLink 
+              to="/blog" 
+              class="group w-full sm:w-auto rounded-xl bg-white border-2 border-gray-200 px-8 py-4 text-base font-bold text-gray-900 hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 flex items-center justify-center space-x-2 shadow-sm hover:shadow-md"
+            >
               <span>Read Our Blog</span>
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
-            </a>
+            </NuxtLink>
           </div>
 
           <!-- Feature Pills -->
