@@ -4,17 +4,21 @@
             <div class="flex-1 overflow-x-auto no-scrollbar">
                 <ul class="flex gap-8 text-[10px] sm:text-xs font-bold uppercase tracking-[0.15em] text-gray-400 whitespace-nowrap">
                     <li 
-                        v-for="category in categories" 
-                        :key="category"
-                        @click="activeCategory = category"
+                        v-for="catName in categoryList" 
+                        :key="catName"
+                        @click="activeCategory = catName"
                         :class="[
                             'cursor-pointer py-4 transition-all duration-300 border-b-2 hover:text-black',
-                            activeCategory === category 
+                            activeCategory === catName 
                                 ? 'text-red-600 border-red-600' 
                                 : 'border-transparent'
                         ]"
                     >
-                        {{ category }}
+                        {{ catName }}
+                    </li>
+                    
+                    <li v-if="loading" class="py-4 animate-pulse text-gray-200 uppercase tracking-widest text-[10px]">
+                        Syncing {{ type }} Taxonomy...
                     </li>
                 </ul>
             </div>
@@ -32,33 +36,54 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 
-const categories = [
-    'All Posts', 
-    'Design', 
-    'Development', 
-    'Business', 
-    'Marketing', 
-    'Strategy', 
-    'Tutorials',
-    'All Posts', 
-    'Design', 
-    'Development', 
-    'Business', 
-    'Marketing', 
-    'Strategy', 
-    'Tutorials'
-];
+// Define the component props
+const props = defineProps({
+    type: {
+        type: String,
+        default: 'blog', // Default to blog if no prop is provided
+        required: false
+    }
+});
+
+const loading = ref(true);
+const categories = ref<any[]>([]);
 const activeCategory = ref('All Posts');
+
+const categoryList = computed(() => {
+    const names = categories.value.map(c => c.name);
+    return ['All Posts', ...names];
+});
+
+const fetchCategories = async () => {
+    loading.value = true;
+    try {
+        // Appending the query parameter dynamically based on the prop
+        const url = `http://127.0.0.1:8000/api/category/?type=${props.type}`;
+        
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('API Error');
+        const data = await response.json();
+        categories.value = data;
+    } catch (error) {
+        console.error("Failed to load navigation categories:", error);
+    } finally {
+        loading.value = false;
+    }
+};
+
+// Re-fetch if the type prop changes while the component is mounted
+watch(() => props.type, () => {
+    fetchCategories();
+});
+
+onMounted(() => {
+    fetchCategories();
+});
 </script>
 
 <style scoped>
-.no-scrollbar::-webkit-scrollbar {
-    display: none;
-}
-.no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 </style>

@@ -1,6 +1,17 @@
 <template>
-    <DashboardHeader/>
-  <div class="min-h-screen bg-white pb-20">
+  <DashboardHeader />
+  <div class="min-h-screen bg-white pb-20 relative">
+    
+    <Transition name="slide-up">
+      <div v-if="notification.show" 
+        :class="[notification.isError ? 'bg-red-600' : 'bg-black', 'fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-4 px-8 py-4 rounded-full shadow-2xl min-w-[320px] border border-white/10']"
+      >
+        <span :class="[notification.isError ? 'text-white' : 'text-red-600', 'icon-[tabler--circle-check] size-5']" v-if="!notification.isError"></span>
+        <span class="icon-[tabler--alert-circle] text-white size-5" v-else></span>
+        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-white">{{ notification.message }}</p>
+      </div>
+    </Transition>
+
     <header class="py-12 border-b border-gray-100 mb-12">
       <div class="mx-auto max-w-5xl px-6 flex items-end justify-between">
         <div>
@@ -15,12 +26,38 @@
       <form @submit.prevent="handleProductSubmit" class="grid grid-cols-1 lg:grid-cols-12 gap-12">
         
         <div class="lg:col-span-8 space-y-10">
-          
+          <div class="form-control">
+            <label class="text-xs font-black uppercase tracking-widest text-black mb-3 block">Product Gallery (Multi-Upload)</label>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+              <div v-for="(src, idx) in imagePreviews" :key="idx" class="relative aspect-square rounded-3xl overflow-hidden border border-gray-100 group">
+                <img :src="src" class="size-full object-cover" />
+                <button @click.stop="removeFile(idx)" type="button" class="absolute top-2 right-2 size-6 bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span class="icon-[tabler--x] size-4"></span>
+                </button>
+              </div>
+
+              <div 
+                @dragover.prevent="dragOver = true"
+                @dragleave.prevent="dragOver = false"
+                @drop.prevent="handleDrop"
+                @click="$refs.fileInput.click()"
+                :class="[dragOver ? 'border-red-600 bg-red-50' : 'border-gray-200 bg-gray-50', 'relative aspect-square border-2 border-dashed rounded-[2.5rem] transition-all cursor-pointer overflow-hidden group flex flex-col items-center justify-center text-center px-4']"
+              >
+                <input type="file" ref="fileInput" class="hidden" accept="image/*" multiple @change="handleFileSelect" />
+                <span class="icon-[tabler--plus] size-8 text-gray-300 group-hover:text-red-600 transition-colors mb-1"></span>
+                <p class="text-[8px] font-black uppercase tracking-widest text-gray-400">Add Assets</p>
+              </div>
+            </div>
+            <p class="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Supports PNG, JPG, WEBP • Max 10 files</p>
+          </div>
+
           <div class="form-control">
             <label class="text-xs font-black uppercase tracking-widest text-black mb-3 block">Product Name</label>
             <input 
               v-model="form.product_name" 
               type="text" 
+              required
               class="w-full bg-white border-b-2 border-gray-100 py-4 font-bold focus:border-red-600 focus:outline-none transition-colors placeholder:text-gray-200" 
               placeholder="Enter product name..." 
             />
@@ -32,6 +69,7 @@
               <textarea 
                 v-model="form.short_description" 
                 rows="2"
+                required
                 class="w-full bg-gray-100 rounded-2xl p-5 focus:ring-2 focus:ring-red-600 focus:outline-none transition-all resize-none border-none text-gray-700" 
                 placeholder="A brief overview for listings..."
               ></textarea>
@@ -42,35 +80,15 @@
               <textarea 
                 v-model="form.body" 
                 rows="8"
+                required
                 class="w-full bg-gray-100 rounded-2xl p-5 focus:ring-2 focus:ring-red-600 focus:outline-none transition-all border-none text-gray-700" 
-                placeholder="Detailed product documentation and storytelling..."
+                placeholder="Detailed product documentation..."
               ></textarea>
-            </div>
-          </div>
-
-          <div class="form-control bg-gray-100 p-8 rounded-3xl">
-            <label class="text-xs font-black uppercase tracking-widest text-black mb-6 block flex justify-between items-center">
-              Product Gallery (URLs)
-              <button type="button" @click="addImageUrl" class="text-red-600 hover:text-black transition-colors font-bold">+ Add Image</button>
-            </label>
-            <div class="space-y-4">
-              <div v-for="(url, index) in form.image_urls" :key="index" class="flex gap-3">
-                <input 
-                  v-model="form.image_urls[index]" 
-                  type="text" 
-                  class="grow bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-1 focus:ring-red-600 focus:outline-none" 
-                  placeholder="https://image-source.com/photo.jpg" 
-                />
-                <button @click="removeImageUrl(index)" type="button" class="p-3 text-gray-300 hover:text-red-600 transition-colors">
-                  <span class="icon-[tabler--trash] size-5"></span>
-                </button>
-              </div>
             </div>
           </div>
         </div>
 
         <div class="lg:col-span-4 space-y-8">
-          
           <div class="bg-black p-8 rounded-3xl text-white shadow-2xl">
             <h3 class="text-lg font-bold mb-6 flex items-center gap-3">
               <span class="w-1.5 h-6 bg-red-600"></span> Classification
@@ -78,37 +96,45 @@
             
             <div class="space-y-6">
               <div class="form-control">
-                <label class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Category Name</label>
-                <select v-model="form.category_name" class="w-full bg-white/10 border border-white/10 rounded-xl py-3 px-4 text-sm text-white focus:border-red-600 focus:outline-none">
-                  <option value="" disabled>Select Category</option>
-                  <option class="text-black" value="Electronics">Electronics</option>
-                  <option class="text-black" value="Design">Design</option>
-                  <option class="text-black" value="Lifestyle">Lifestyle</option>
+                <label class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Category</label>
+                <select 
+                  v-model="form.category_id" 
+                  @change="syncCategoryName"
+                  required
+                  class="w-full bg-white/10 border border-white/10 rounded-xl py-3 px-4 text-sm text-white focus:border-red-600 focus:outline-none appearance-none"
+                >
+                  <option value="" disabled class="text-black">Select Category</option>
+                  <option v-for="cat in categoryList" :key="cat._id" :value="cat._id" class="text-black">
+                    {{ cat.name }}
+                  </option>
                 </select>
-              </div>
-
-              <div class="form-control">
-                <label class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Category ID</label>
-                <input v-model="form.category_id" type="text" class="w-full bg-white/10 border border-white/10 rounded-xl py-3 px-4 text-sm text-white focus:border-red-600 focus:outline-none" placeholder="CAT-001" />
               </div>
 
               <div class="form-control">
                 <label class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-2 block">Publish Date</label>
                 <input ref="datePicker" v-model="form.date" type="text" class="w-full bg-white/10 border border-white/10 rounded-xl py-3 px-4 text-sm text-white focus:border-red-600 focus:outline-none cursor-pointer" />
               </div>
+
+              <div class="flex items-center gap-3 pt-2">
+                <input type="checkbox" v-model="form.draft" id="draftMode" class="size-4 accent-red-600" />
+                <label for="draftMode" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 cursor-pointer">Save as Draft</label>
+              </div>
             </div>
           </div>
 
           <div class="pt-6">
-            <button type="submit" class="w-full bg-red-600 hover:bg-black text-white font-black py-5 rounded-full transition-all duration-300 shadow-xl hover:shadow-red-600/20 uppercase tracking-[0.2em] text-xs">
-              Save Product
+            <button 
+              type="submit" 
+              :disabled="loading"
+              class="w-full bg-red-600 hover:bg-black text-white font-black py-5 rounded-full transition-all duration-300 shadow-xl hover:shadow-red-600/20 uppercase tracking-[0.2em] text-xs disabled:opacity-50"
+            >
+              {{ loading ? `Uploading ${imageFiles.length} Assets...` : 'Save Product' }}
             </button>
-            <button type="button" class="w-full mt-4 text-gray-400 hover:text-red-600 font-bold py-2 text-xs uppercase tracking-widest transition-colors">
+            <button @click="goBack" type="button" class="w-full mt-4 text-gray-400 hover:text-red-600 font-bold py-2 text-xs uppercase tracking-widest transition-colors">
               Cancel Draft
             </button>
           </div>
         </div>
-
       </form>
     </main>
   </div>
@@ -119,42 +145,133 @@ import { ref, reactive, onMounted } from 'vue'
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.css'
 
+const loading = ref(false)
+const dragOver = ref(false)
 const datePicker = ref<HTMLInputElement | null>(null)
+const fileInput = ref<HTMLInputElement | null>(null)
+
+// NEW: Store arrays for multiple files
+const imageFiles = ref<File[]>([])
+const imagePreviews = ref<string[]>([])
+
+const categoryList = ref<{_id: string, name: string}[]>([])
+const notification = reactive({ show: false, message: '', isError: false })
 
 const form = reactive({
-  image_urls: [''],
   category_id: '',
   category_name: '',
   product_name: '',
   short_description: '',
   body: '',
+  draft: false,
   date: new Date().toISOString().split('T')[0],
-  iframe: ''
 })
 
-const addImageUrl = () => form.image_urls.push('')
-const removeImageUrl = (index: number) => {
-  if (form.image_urls.length > 1) form.image_urls.splice(index, 1)
+const triggerNotification = (msg: string, isErr: boolean) => {
+  notification.message = msg
+  notification.isError = isErr
+  notification.show = true
+  setTimeout(() => notification.show = false, 4000)
 }
 
-const handleProductSubmit = () => {
-  console.log('Pushing Pydantic-ready Product Object:', JSON.parse(JSON.stringify(form)))
-  // API Call logic here
+const fetchCategories = async () => {
+  try {
+    const res = await fetch('http://127.0.0.1:8000/api/category/?type=product')
+    categoryList.value = await res.json()
+  } catch (err) {
+    console.error("Failed to load categories")
+  }
 }
+
+const syncCategoryName = () => {
+  const selected = categoryList.value.find(c => c._id === form.category_id)
+  if (selected) form.category_name = selected.name
+}
+
+// NEW: Logic to handle multiple file selection
+const handleFileSelect = (e: any) => {
+  const files = Array.from(e.target.files) as File[]
+  addFiles(files)
+}
+
+const handleDrop = (e: DragEvent) => {
+  dragOver.value = false
+  const files = Array.from(e.dataTransfer?.files || []) as File[]
+  const validImages = files.filter(f => f.type.startsWith('image/'))
+  addFiles(validImages)
+}
+
+const addFiles = (files: File[]) => {
+  files.forEach(file => {
+    imageFiles.value.push(file)
+    imagePreviews.value.push(URL.createObjectURL(file))
+  })
+}
+
+const removeFile = (index: number) => {
+  imageFiles.value.splice(index, 1)
+  imagePreviews.value.splice(index, 1)
+}
+
+const handleProductSubmit = async () => {
+  if (imageFiles.value.length === 0) {
+    triggerNotification('At least one product image is required', true)
+    return
+  }
+
+  loading.value = true
+  const formData = new FormData()
+  
+  formData.append('category_id', form.category_id)
+  formData.append('category_name', form.category_name)
+  formData.append('product_name', form.product_name)
+  formData.append('short_description', form.short_description)
+  formData.append('body', form.body)
+  formData.append('draft', String(form.draft))
+  
+  // NEW: Append multiple files to the same key 'images'
+  imageFiles.value.forEach(file => {
+    formData.append('images', file)
+  })
+
+  try {
+    const res = await fetch('http://127.0.0.1:8000/api/product/', {
+      method: 'POST',
+      headers: {
+        'token': "t7t7PWOxi='D0ov9iG&L+.I{K!x~8g0zr^M3v_P;g(vt,mX_Bg"
+      },
+      body: formData
+    })
+
+    const data = await res.json()
+    if (data.status) {
+      triggerNotification(`${imageFiles.value.length} assets uploaded successfully`, false)
+      setTimeout(() => window.history.back(), 1500)
+    } else {
+      throw new Error()
+    }
+  } catch (err) {
+    triggerNotification('Submission failed. Check your token.', true)
+  } finally {
+    loading.value = false
+  }
+}
+
+const goBack = () => window.history.back()
 
 onMounted(() => {
+  fetchCategories()
   if (datePicker.value) {
     flatpickr(datePicker.value, {
       monthSelectorType: 'static',
-      dateFormat: "Y-m-d", // Matches Pydantic date.today() format
+      dateFormat: "Y-m-d",
     })
   }
 })
 </script>
 
 <style scoped>
-/* Scoped styles to ensure clean focus rings */
-input:focus, select:focus, textarea:focus {
-  outline: none;
-}
+.slide-up-enter-active, .slide-up-leave-active { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.slide-up-enter-from { opacity: 0; transform: translate(-50%, 20px); }
+.slide-up-leave-to { opacity: 0; transform: translate(-50%, 10px); }
 </style>

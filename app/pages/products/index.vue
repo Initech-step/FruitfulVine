@@ -3,9 +3,9 @@
     <br/>
     <br/>
     <br/>
-    <Categories />
+    <Categories type="product"/>
     <ProductCategory />
-    <Categories />
+    <Categories type="product"/>
     <Footer />
 </template>
 

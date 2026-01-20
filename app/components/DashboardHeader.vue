@@ -98,15 +98,16 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 const user = {
   imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
+const baseUrl = 'http://localhost:3000/'
 
 const navigation = ref([
   { 
     name: 'Main', 
-    href: '#', 
+    href: 'http://localhost:3000/admin/', 
     current: true,
     dropdown: [
-      { name: 'Create Product', href: '#' },
-      { name: 'Create Blog', href: '#' },
+      { name: 'Create Product', href: 'http://localhost:3000/admin/product/' },
+      { name: 'Create Blog', href: 'http://localhost:3000/admin/blog/' },
       { name: 'View Contact Request', href: '#' }
     ]
   },
@@ -115,8 +116,8 @@ const navigation = ref([
     href: '#', 
     current: false,
     dropdown: [
-      { name: 'Create Products', href: '#' },
-      { name: 'Manage Products', href: '#' }
+      { name: 'Create Products', href: 'http://localhost:3000/admin/product/' },
+      { name: 'Manage Products', href: 'http://localhost:3000/admin/product/manageproduct/' }
     ]
   },
   { 
@@ -124,8 +125,8 @@ const navigation = ref([
     href: '#', 
     current: false,
     dropdown: [
-      { name: 'Create Blogs', href: '#' },
-      { name: 'Manage Blogs', href: '#' }
+      { name: 'Create Blogs', href: 'http://localhost:3000/admin/blog/' },
+      { name: 'Manage Blogs', href: 'http://localhost:3000/admin/blog/manageblog/' }
     ]
   },
   { 
@@ -133,8 +134,16 @@ const navigation = ref([
     href: '#', 
     current: false,
     dropdown: [
-      { name: 'View Contact Request', href: '#' },
-      { name: 'View Form', href: '#' }
+      { name: 'View Contact Request', href: 'http://localhost:3000/admin/contact/' },
+    ]
+  },
+  { 
+    name: 'Categories', 
+    href: 'http://localhost:3000/admin/categories/', 
+    current: false,
+    dropdown: [
+      { name: 'Create Categories', href: 'http://localhost:3000/admin/categories/' },
+      { name: 'View Form', href: 'http://localhost:3000/admin/categories/managecategories/' }
     ]
   }
 ])
