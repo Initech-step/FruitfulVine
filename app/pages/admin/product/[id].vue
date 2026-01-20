@@ -20,7 +20,9 @@
             <div class="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
                 <div class="flex items-center gap-4">
                     <button @click="goBack" class="p-2 hover:bg-gray-100 rounded-full transition-colors text-black">
-                        <span class="icon-[tabler--arrow-left] size-6"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14M5 12l6 6m-6-6 6-6"/>
+                        </svg>
                     </button>
                     <span class="text-xs font-black uppercase tracking-widest text-gray-400">Product Management</span>
                 </div>
@@ -51,22 +53,46 @@
                     <div class="space-y-4">
                         <label class="text-[10px] font-black uppercase tracking-widest text-gray-400 block">Product Gallery</label>
                         <div class="grid grid-cols-4 gap-4">
-                            <div v-for="(url, idx) in product.image_urls" :key="'cloud-'+idx" class="relative aspect-square group">
-                                <img :src="url" @click="activeImage = url" :class="[activeImage === url ? 'border-red-600' : 'border-transparent', 'size-full rounded-2xl object-cover border-2 cursor-pointer transition-all']" />
-                                <button v-if="isEditing" @click="removeExistingImage(idx)" class="absolute -top-2 -right-2 size-6 bg-black text-white rounded-full flex items-center justify-center scale-0 group-hover:scale-100 transition-transform shadow-lg">
-                                    <span class="icon-[tabler--x] size-3"></span>
+                            <div v-for="(img, idx) in product.images" :key="'cloud-'+idx" class="relative aspect-square group">
+                                <img 
+                                    :src="img.url" 
+                                    @click="activeImage = img.url" 
+                                    :class="[activeImage === img.url ? 'border-red-600' : 'border-transparent', 'size-full rounded-2xl object-cover border-2 cursor-pointer transition-all']" 
+                                />
+                                <button 
+                                    v-if="isEditing" 
+                                    @click="removeExistingImage(idx)" 
+                                    class="absolute -top-2 -right-2 size-6 bg-black text-white rounded-full flex items-center justify-center scale-0 group-hover:scale-100 transition-transform shadow-lg"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M18 6 6 18M6 6l12 12"/>
+                                    </svg>
                                 </button>
                             </div>
 
                             <div v-for="(src, idx) in newImagePreviews" :key="'new-'+idx" class="relative aspect-square group">
-                                <img :src="src" @click="activeImage = src" :class="[activeImage === src ? 'border-red-600' : 'border-transparent', 'size-full rounded-2xl object-cover border-2 cursor-pointer transition-all opacity-70']" />
-                                <button v-if="isEditing" @click="removeNewImage(idx)" class="absolute -top-2 -right-2 size-6 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg">
-                                    <span class="icon-[tabler--x] size-3"></span>
+                                <img 
+                                    :src="src" 
+                                    @click="activeImage = src" 
+                                    :class="[activeImage === src ? 'border-red-600' : 'border-transparent', 'size-full rounded-2xl object-cover border-2 cursor-pointer transition-all opacity-70']" 
+                                />
+                                <button 
+                                    v-if="isEditing" 
+                                    @click="removeNewImage(idx)" 
+                                    class="absolute -top-2 -right-2 size-6 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M18 6 6 18M6 6l12 12"/>
+                                    </svg>
                                 </button>
                                 <div class="absolute bottom-1 right-1 bg-red-600 size-2 rounded-full"></div>
                             </div>
 
-                            <button v-if="isEditing" @click="$refs.fileInput.click()" class="aspect-square rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center gap-1 hover:border-red-600 hover:bg-red-50 transition-all group">
+                            <button 
+                                v-if="isEditing" 
+                                @click="$refs.fileInput.click()" 
+                                class="aspect-square rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center gap-1 hover:border-red-600 hover:bg-red-50 transition-all group"
+                            >
                                 <span class="icon-[tabler--plus] size-6 text-gray-300 group-hover:text-red-600"></span>
                                 <span class="text-[8px] font-black uppercase text-gray-400">Add</span>
                                 <input type="file" ref="fileInput" class="hidden" accept="image/*" multiple @change="handleImageChange" />
@@ -126,6 +152,12 @@
 import { ref, reactive, onMounted } from 'vue'
 import { useRoute } from 'nuxt/app'
 
+interface ProductImage {
+    url?: string;
+    public_id?: string;
+    secure_url?: string;
+}
+
 const route = useRoute()
 const isEditing = ref(false)
 const loading = ref(true)
@@ -138,7 +170,7 @@ const newImagePreviews = ref<string[]>([])
 
 const product = reactive({
     _id: '',
-    image_urls: [] as string[],
+    images: [] as ProductImage[],
     product_name: '',
     category_id: '',
     category_name: '',
@@ -161,7 +193,8 @@ const fetchProductDetails = async () => {
         const res = await fetch(`http://127.0.0.1:8000/api/product/${route.params.id}/`)
         const data = await res.json()
         Object.assign(product, data)
-        if (product.image_urls.length > 0) activeImage.value = product.image_urls[0]
+        if (data.images) activeImage.value = data.images[0].url || data.images[0].secure_url
+        
     } catch (err) {
         triggerNotification('Failed to fetch product data', true)
     } finally {
@@ -192,12 +225,12 @@ const handleImageChange = (e: any) => {
 }
 
 const removeExistingImage = (index: number) => {
-    const removedUrl = product.image_urls[index]
-    product.image_urls.splice(index, 1)
+    const removedUrl = product.images[index].url
+    product.images.splice(index, 1)
     
-    // Sync active image if we removed the current one
+    // Sync active image if the one being viewed was deleted
     if (activeImage.value === removedUrl) {
-        activeImage.value = product.image_urls[0] || newImagePreviews.value[0] || ''
+        activeImage.value = product.images[0]?.url || product.images[0]?.secure_url || newImagePreviews.value[0] || ''
     }
 }
 
@@ -210,7 +243,7 @@ const removeNewImage = (index: number) => {
     
     // Sync active image
     if (activeImage.value === removedUrl) {
-        activeImage.value = product.image_urls[0] || newImagePreviews.value[0] || ''
+        activeImage.value = product.images[0]?.url || product.images[0]?.secure_url || newImagePreviews.value[0] || ''
     }
 }
 
@@ -227,7 +260,7 @@ const saveProduct = async () => {
     formData.append('category_name', product.category_name)
     
     // The "Keep" List
-    formData.append('existing_images', JSON.stringify(product.image_urls))
+    formData.append('existing_images', JSON.stringify(product.images))
     // The "New" List
     newImageFiles.value.forEach(file => formData.append('images', file))
 

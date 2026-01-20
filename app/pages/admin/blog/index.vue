@@ -20,10 +20,6 @@
             Draft <span class="text-red-600">Article</span>
           </h1>
         </div>
-        <div class="hidden md:flex items-center gap-4 text-gray-400">
-          <span class="icon-[tabler--clock] size-5"></span>
-          <p class="text-sm font-bold uppercase tracking-widest">Auto-saving Enabled</p>
-        </div>
       </div>
     </header>
 

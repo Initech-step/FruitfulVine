@@ -33,7 +33,9 @@
               <div v-for="(src, idx) in imagePreviews" :key="idx" class="relative aspect-square rounded-3xl overflow-hidden border border-gray-100 group">
                 <img :src="src" class="size-full object-cover" />
                 <button @click.stop="removeFile(idx)" type="button" class="absolute top-2 right-2 size-6 bg-red-600 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span class="icon-[tabler--x] size-4"></span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 6 6 18M6 6l12 12"/>
+                  </svg>
                 </button>
               </div>
 
