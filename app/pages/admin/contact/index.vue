@@ -17,8 +17,10 @@
                 <span class="text-[10px] font-black uppercase tracking-[0.2em] text-red-600 mb-2 block">Inquiry Details</span>
                 <h2 class="text-3xl font-black text-black uppercase tracking-tighter">{{ selectedContact.name }}</h2>
               </div>
-              <button @click="selectedContact = null" class="p-3 hover:bg-gray-100 rounded-full transition-colors">
-                <span class="icon-[tabler--x] size-6 text-black"></span>
+              <button @click="selectedContact = null" class="p-3 text-white bg-red-600 rounded-full transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
               </button>
             </div>
 

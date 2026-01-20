@@ -5,39 +5,40 @@
         <div class="flex h-20 items-center justify-between">
           
           <div class="flex items-center gap-12">
-            <div class="shrink-0">
+            <NuxtLink to="/admin" class="shrink-0 group">
               <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-                  <div class="w-4 h-4 bg-red-600 rotate-45"></div>
+                <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center group-hover:bg-red-600 transition-colors">
+                  <div class="w-4 h-4 bg-red-600 rotate-45 group-hover:bg-white transition-colors"></div>
                 </div>
                 <span class="text-black font-black uppercase tracking-tighter text-xl">FruitFul Vine</span>
               </div>
-            </div>
+            </NuxtLink>
 
             <div class="hidden md:block">
               <div class="flex items-baseline space-x-1">
                 <Menu as="div" v-for="item in navigation" :key="item.name" class="relative inline-block text-left">
                   <MenuButton
-                    @click="setActive(item)"
                     :class="[
-                      item.current 
+                      isPathActive(item.path) 
                         ? 'text-red-600' 
                         : 'text-gray-500 hover:text-black', 
                       'group inline-flex items-center rounded-md px-4 py-2 text-sm font-bold uppercase tracking-widest transition-all'
                     ]"
                   >
                     <span>{{ item.name }}</span>
-                    <span class="icon-[tabler--chevron-down] ml-1 size-4 transition-transform group-data-[open]:rotate-180"></span>
-                    <div v-if="item.current" class="absolute bottom-[-26px] left-0 w-full h-1 bg-red-600"></div>
+                    <svg class="ml-1 w-4 h-4 transition-transform group-data-[open]:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                    </svg>
+                    <div v-if="isPathActive(item.path)" class="absolute bottom-[-26px] left-0 w-full h-1 bg-red-600"></div>
                   </MenuButton>
 
                   <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform scale-100" leave-to-class="transform opacity-0 scale-95">
                     <MenuItems class="absolute left-0 z-10 mt-6 w-56 origin-top-left rounded-xl bg-white p-2 shadow-2xl border border-gray-100 focus:outline-none">
                       <MenuItem v-for="sub in item.dropdown" :key="sub.name" v-slot="{ active }">
-                        <a :href="sub.href" :class="[active ? 'bg-gray-50 text-red-600' : 'text-black', 'flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-lg transition-colors']">
-                          <span :class="['size-1.5 rounded-full bg-red-600 opacity-0', active ? 'opacity-100' : '']"></span>
+                        <NuxtLink :to="sub.href" :class="[active ? 'bg-gray-50 text-red-600' : 'text-black', 'flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-lg transition-colors']">
+                          <span :class="['size-1.5 rounded-full bg-red-600 transition-all', active ? 'opacity-100' : 'opacity-0']"></span>
                           {{ sub.name }}
-                        </a>
+                        </NuxtLink>
                       </MenuItem>
                     </MenuItems>
                   </transition>
@@ -47,11 +48,15 @@
           </div>
 
           <div class="hidden md:block">
-            <div class="ml-4 flex items-center gap-4 md:ml-6">
-              <Menu as="div" class="relative ml-3">
-                <button class="btn-lg bg-black text-white p-3 round-5">Sign Out</button>
-              </Menu>
-            </div>
+            <button 
+              @click="handleSignOut"
+              class="flex items-center gap-2 bg-black hover:bg-red-600 text-white px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 transform active:scale-95 shadow-lg hover:shadow-red-500/20"
+            >
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              Sign Out
+            </button>
           </div>
 
           <div class="-mr-2 flex md:hidden">
@@ -66,91 +71,85 @@
       <DisclosurePanel class="md:hidden bg-white border-t border-gray-100">
         <div class="space-y-1 px-4 pt-4 pb-6">
           <div v-for="item in navigation" :key="item.name" class="py-2">
-            <div @click="setActive(item)" :class="[item.current ? 'text-red-600' : 'text-black', 'text-lg font-black uppercase tracking-widest mb-2 px-2']">
+            <div :class="[isPathActive(item.path) ? 'text-red-600' : 'text-black', 'text-lg font-black uppercase tracking-widest mb-2 px-2']">
               {{ item.name }}
             </div>
             <div class="pl-4 space-y-2 border-l-2 border-gray-100 ml-2">
-              <a v-for="sub in item.dropdown" :key="sub.name" :href="sub.href" class="block py-1 text-sm text-gray-500 hover:text-red-600 font-bold">
+              <NuxtLink v-for="sub in item.dropdown" :key="sub.name" :to="sub.href" class="block py-1 text-sm text-gray-500 hover:text-red-600 font-bold transition-colors">
                 {{ sub.name }}
-              </a>
+              </NuxtLink>
             </div>
           </div>
+          <button @click="handleSignOut" class="w-full mt-6 bg-gray-100 text-black p-4 rounded-xl font-black uppercase tracking-widest text-xs">
+            Confirm Sign Out
+          </button>
         </div>
       </DisclosurePanel>
     </Disclosure>
-
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
 
-const user = {
-  imageUrl: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
-const baseUrl = 'http://localhost:3000/'
+const route = useRoute()
+const router = useRouter()
 
-const navigation = ref([
+const navigation = [
   { 
     name: 'Main', 
-    href: 'http://localhost:3000/admin/', 
-    current: true,
+    path: '/admin', // Root path for matching
     dropdown: [
-      { name: 'Create Product', href: 'http://localhost:3000/admin/product/' },
-      { name: 'Create Blog', href: 'http://localhost:3000/admin/blog/' },
-      { name: 'View Contact Request', href: '#' }
+      { name: 'Dashboard Home', href: '/admin' },
+      { name: 'Create Product', href: '/admin/product' },
+      { name: 'Create Blog', href: '/admin/blog' },
     ]
   },
   { 
     name: 'Products', 
-    href: '#', 
-    current: false,
+    path: '/admin/product',
     dropdown: [
-      { name: 'Create Products', href: 'http://localhost:3000/admin/product/' },
-      { name: 'Manage Products', href: 'http://localhost:3000/admin/product/manageproduct/' }
+      { name: 'Create Products', href: '/admin/product' },
+      { name: 'Manage Products', href: '/admin/product/manageproduct' }
     ]
   },
   { 
     name: 'Blogs', 
-    href: '#', 
-    current: false,
+    path: '/admin/blog',
     dropdown: [
-      { name: 'Create Blogs', href: 'http://localhost:3000/admin/blog/' },
-      { name: 'Manage Blogs', href: 'http://localhost:3000/admin/blog/manageblog/' }
+      { name: 'Create Blogs', href: '/admin/blog' },
+      { name: 'Manage Blogs', href: '/admin/blog/manageblog' }
     ]
   },
   { 
     name: 'Contact', 
-    href: '#', 
-    current: false,
+    path: '/admin/contact',
     dropdown: [
-      { name: 'View Contact Request', href: 'http://localhost:3000/admin/contact/' },
+      { name: 'View Contact Request', href: '/admin/contact' },
     ]
   },
   { 
     name: 'Categories', 
-    href: 'http://localhost:3000/admin/categories/', 
-    current: false,
+    path: '/admin/categories',
     dropdown: [
-      { name: 'Create Categories', href: 'http://localhost:3000/admin/categories/' },
-      { name: 'View Form', href: 'http://localhost:3000/admin/categories/managecategories/' }
+      { name: 'Create Categories', href: '/admin/categories' },
+      { name: 'Manage Categories', href: '/admin/categories/managecategories' }
     ]
   }
-])
-
-const userNavigation = [
-  { name: 'Sign out', href: '#' },
 ]
 
-const setActive = (selectedItem: any) => {
-  navigation.value.forEach(item => {
-    item.current = item.name === selectedItem.name
-  })
+// Logic: Check if the current route starts with the nav item path
+const isPathActive = (path: string) => {
+  if (path === '/admin') {
+    return route.path === '/admin' // Exact match for Home
+  }
+  return route.path.startsWith(path) // Matches sub-pages (e.g., /admin/product/manage)
 }
 
-const activePageName = computed(() => {
-  return navigation.value.find(item => item.current)?.name || 'Dashboard'
-})
+const handleSignOut = () => {
+  localStorage.removeItem('FVTOKEN')
+  router.push('/admin/login')
+}
 </script>
