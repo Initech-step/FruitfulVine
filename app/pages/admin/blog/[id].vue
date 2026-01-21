@@ -149,7 +149,7 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const b_id = route.params.id as string
-
+const { getUrl } = useApi()
 const isEditing = ref(false)
 const loading = ref(false)
 const dragOver = ref(false)
@@ -175,7 +175,7 @@ const triggerNotification = (msg: string, isErr: boolean) => {
 // 1. Fetch current post data on mount
 const fetchPostData = async () => {
   try {
-    const res = await fetch(`http://127.0.0.1:8000/api/blog/${b_id}`)
+    const res = await fetch(getUrl(`blog/${b_id}`))
     const data = await res.json()
     Object.assign(post, data)
   } catch (err) {
@@ -217,7 +217,7 @@ const savePost = async () => {
   }
 
   try {
-    const res = await fetch(`http://127.0.0.1:8000/api/blog/${b_id}/`, {
+    const res = await fetch(getUrl(`blog/${b_id}/`), {
       method: 'PUT',
       headers: {
         'token': "t7t7PWOxi='D0ov9iG&L+.I{K!x~8g0zr^M3v_P;g(vt,mX_Bg"

@@ -123,6 +123,7 @@ const contacts = ref<any[]>([])
 const loading = ref(true)
 const selectedContact = ref<any | null>(null)
 const notification = reactive({ show: false, message: '' })
+const { getUrl } = useApi()
 
 const triggerNotification = (msg: string) => {
   notification.message = msg
@@ -133,7 +134,7 @@ const triggerNotification = (msg: string) => {
 const fetchContacts = async () => {
   loading.value = true
   try {
-    const res = await fetch('http://127.0.0.1:8000/api/contact/')
+    const res = await fetch(getUrl('contact/'))
     const data = await res.json()
     // Mapping API "contacts" key
     contacts.value = data.contacts || []
@@ -152,7 +153,7 @@ const handleDelete = async (contact_id: string) => {
   if (!confirm('Are you sure you want to delete this inquiry permanently?')) return
 
   try {
-    const res = await fetch(`http://127.0.0.1:8000/api/contact/${contact_id}/`, {
+    const res = await fetch(getUrl(`contact/${contact_id}/`), {
       method: 'DELETE',
       headers: {
         'token': "t7t7PWOxi='D0ov9iG&L+.I{K!x~8g0zr^M3v_P;g(vt,mX_Bg"

@@ -1,9 +1,14 @@
 import tailwindcss from "@tailwindcss/vite";
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  runtimeConfig: {
+    // Keys within public are also exposed client-side
+    public: {
+      apiBase: process.env.API_BASE_URL || 'http://127.0.0.1:8000/api'
+    }
+  },
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  
   css: [
     './app/assets/css/main.css',
   ],
@@ -19,7 +24,6 @@ export default defineNuxtConfig({
       ]
     }
   },
-  
   vite: {
     plugins: [
       tailwindcss(),

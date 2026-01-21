@@ -146,7 +146,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import flatpickr from 'flatpickr'
 import 'flatpickr/dist/flatpickr.css'
-
+const { getUrl } = useApi()
 const loading = ref(false)
 const dragOver = ref(false)
 const datePicker = ref<HTMLInputElement | null>(null)
@@ -178,7 +178,7 @@ const triggerNotification = (msg: string, isErr: boolean) => {
 
 const fetchCategories = async () => {
   try {
-    const res = await fetch('http://127.0.0.1:8000/api/category/?type=product')
+    const res = await fetch(getUrl('category/?type=product'))
     categoryList.value = await res.json()
   } catch (err) {
     console.error("Failed to load categories")
@@ -237,7 +237,7 @@ const handleProductSubmit = async () => {
   })
 
   try {
-    const res = await fetch('http://127.0.0.1:8000/api/product/', {
+    const res = await fetch(getUrl('product/'), {
       method: 'POST',
       headers: {
         'token': "t7t7PWOxi='D0ov9iG&L+.I{K!x~8g0zr^M3v_P;g(vt,mX_Bg"

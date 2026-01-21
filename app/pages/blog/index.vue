@@ -50,6 +50,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+const { getUrl } = useApi()
 
 interface BlogPost {
     _id: string;
@@ -75,7 +76,7 @@ const loading = ref(true)
 
 const fetchLastPost = async () => {
     try {
-        const res = await fetch('http://127.0.0.1:8000/api/get_last_post/')
+        const res = await fetch(getUrl('get_last_post/'))
         if (!res.ok) throw new Error('Post not found')
         const data = await res.json()
         lastPost.value = data

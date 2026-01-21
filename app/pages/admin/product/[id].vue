@@ -163,7 +163,7 @@ const isEditing = ref(false)
 const loading = ref(true)
 const saving = ref(false)
 const activeImage = ref('')
-
+const { getUrl } = useApi()
 const notification = reactive({ show: false, message: '', isError: false })
 const newImageFiles = ref<File[]>([])
 const newImagePreviews = ref<string[]>([])
@@ -190,7 +190,7 @@ const triggerNotification = (msg: string, isErr: boolean) => {
 const fetchProductDetails = async () => {
     loading.value = true
     try {
-        const res = await fetch(`http://127.0.0.1:8000/api/product/${route.params.id}/`)
+        const res = await fetch(getUrl(`product/${route.params.id}/`))
         const data = await res.json()
         Object.assign(product, data)
         if (data.images) activeImage.value = data.images[0].url || data.images[0].secure_url
@@ -265,7 +265,7 @@ const saveProduct = async () => {
     newImageFiles.value.forEach(file => formData.append('images', file))
 
     try {
-        const res = await fetch(`http://127.0.0.1:8000/api/edit_product/${product._id}`, {
+        const res = await fetch(getUrl(`edit_product/${product._id}`), {
             method: 'POST',
             headers: { 'token': "t7t7PWOxi='D0ov9iG&L+.I{K!x~8g0zr^M3v_P;g(vt,mX_Bg" },
             body: formData

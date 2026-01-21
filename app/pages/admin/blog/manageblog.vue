@@ -126,6 +126,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from 'vue'
+const { getUrl } = useApi()
 
 const loading = ref(true)
 const blogPosts = ref([])
@@ -150,7 +151,7 @@ const triggerNotification = (msg: string, isErr: boolean) => {
 
 const fetchCategories = async () => {
     try {
-        const res = await fetch(`http://127.0.0.1:8000/api/category/?type=blog`)
+        const res = await fetch(getUrl(`category/?type=blog`))
         const data = await res.json()
         categoryList.value = data
     } catch (err) {
@@ -171,7 +172,7 @@ const fetchBlogs = async () => {
             params.append('category_id', filters.category)
         }
 
-        const res = await fetch(`http://127.0.0.1:8000/api/blog/?${params}`)
+        const res = await fetch(getUrl(`blog/?${params}`))
         const data = await res.json()
         
         blogPosts.value = data.blogs
@@ -187,7 +188,7 @@ const fetchBlogs = async () => {
 const handleDelete = async (post: any) => {
     if (!confirm(`Permanently delete "${post.post_title}"?`)) return
     try {
-        const res = await fetch(`http://127.0.0.1:8000/api/blog/${post._id}`, {
+        const res = await fetch(getUrl(`blog/${post._id}`), {
             method: 'DELETE',
             headers: { 'token': "t7t7PWOxi='D0ov9iG&L+.I{K!x~8g0zr^M3v_P;g(vt,mX_Bg" }
         })

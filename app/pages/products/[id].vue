@@ -122,6 +122,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
+const { getUrl } = useApi()
 
 interface Product {
   _id: string
@@ -169,7 +170,7 @@ const fetchProductDetails = async () => {
   const p_id = route.params.id as string
   try {
     loading.value = true
-    const response = await fetch(`http://127.0.0.1:8000/api/product/${p_id}/`)
+    const response = await fetch(getUrl(`product/${p_id}/`))
     product.value = await response.json()
     startSlideShow()
   } catch (error) {

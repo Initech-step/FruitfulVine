@@ -94,6 +94,7 @@ import { ref, reactive, onMounted } from 'vue'
 
 const categories = ref([])
 const loading = ref(true)
+const { getUrl } = useApi()
 
 // Notification state from create form
 const notification = reactive({
@@ -112,7 +113,7 @@ const triggerNotification = (msg: string, error = false) => {
 const fetchCategories = async () => {
   loading.value = true
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/category/')
+    const response = await fetch(getUrl('category/'))
     if (!response.ok) throw new Error()
     categories.value = await response.json()
     console.log(categories.value)
@@ -127,7 +128,7 @@ const handleDelete = async (id: any, type: string) => {
   if (!confirm(`Confirm permanent removal of: ${type}?`)) return
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/category/${id}/${type}/`, {
+    const response = await fetch(getUrl(`category/${id}/${type}/`), {
       method: 'DELETE',
       headers: {
         'token': "t7t7PWOxi='D0ov9iG&L+.I{K!x~8g0zr^M3v_P;g(vt,mX_Bg"

@@ -78,6 +78,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 
+const { getUrl } = useApi()
 const loading = ref(false)
 const notification = reactive({
   show: false,
@@ -106,7 +107,7 @@ const handleCategorySubmit = async () => {
   loading.value = true
   
   try {
-    const response = await fetch('http://localhost:8000/api/category', {
+    const response = await fetch(getUrl('category'), {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

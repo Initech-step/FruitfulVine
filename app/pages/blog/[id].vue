@@ -62,6 +62,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+const { getUrl } = useApi()
 
 interface BlogPost {
   _id: string;
@@ -83,7 +84,7 @@ const fetchPost = async () => {
   
   try {
     loading.value = true
-    const response = await fetch(`http://127.0.0.1:8000/api/blog/${blogId}/`)
+    const response = await fetch(getUrl(`blog/${blogId}/`))
     if (!response.ok) throw new Error('Post not found')
     const data = await response.json()
     post.value = data

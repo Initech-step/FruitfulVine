@@ -66,7 +66,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 const isLoading = ref(false);
 const error = ref(false);
-
+const { getUrl } = useApi()
 const form = reactive({
     email: '',
     password: '',
@@ -77,7 +77,7 @@ const handleLogin = async () => {
     error.value = false;
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/auth/login/', {
+        const response = await fetch(getUrl('auth/login/'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(form)

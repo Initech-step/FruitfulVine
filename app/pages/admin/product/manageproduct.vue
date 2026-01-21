@@ -118,7 +118,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted, computed } from 'vue'
-
+const { getUrl } = useApi()
 const products = ref<any[]>([])
 const categoryList = ref<any[]>([])
 const loading = ref(false)
@@ -138,7 +138,7 @@ const triggerNotification = (msg: string) => {
 const fetchProducts = async () => {
   loading.value = true
   try {
-    let url = `http://127.0.0.1:8000/api/products/?page=${currentPage.value}&limit=10`
+    let url = getUrl(`products/?page=${currentPage.value}&limit=10`)
     if (selectedCategoryId.value) url += `&category_id=${selectedCategoryId.value}`
     
     const res = await fetch(url)

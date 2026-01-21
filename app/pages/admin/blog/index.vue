@@ -97,6 +97,7 @@
 
 <script setup lang="ts">
 import { reactive, ref, onMounted } from 'vue'
+const { getUrl } = useApi()
 
 const loading = ref(false)
 const categories = ref([])
@@ -122,7 +123,7 @@ const triggerNotification = (msg: string, isErr: boolean) => {
 
 const fetchCategories = async () => {
   try {
-    const res = await fetch('http://127.0.0.1:8000/api/category/?type=blog')
+    const res = await fetch(getUrl('category/?type=blog'))
     const data = await res.json()
     categories.value = data
     if (data.length > 0) {
@@ -164,7 +165,7 @@ const handleBlogSubmit = async (isDraft: boolean) => {
   }
 
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/blog/', {
+    const response = await fetch(getUrl('blog/'), {
       method: 'POST',
       headers: {
         'token': "t7t7PWOxi='D0ov9iG&L+.I{K!x~8g0zr^M3v_P;g(vt,mX_Bg"

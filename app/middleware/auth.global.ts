@@ -1,4 +1,8 @@
+
 export default defineNuxtRouteMiddleware(async (to) => {
+  const url = "http://127.0.0.1:8000/api/validate_token/"
+  const urlb = ""
+
   const isChecking = useAuthChecking() // Access our global switch
   console.log("Middleware ran")
 
@@ -14,7 +18,7 @@ export default defineNuxtRouteMiddleware(async (to) => {
       }
 
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/validate_token/', {
+        const response = await fetch(url, {
           method: 'POST',
           headers: { 'token': token }
         })
