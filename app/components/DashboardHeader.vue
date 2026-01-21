@@ -7,10 +7,7 @@
           <div class="flex items-center gap-12">
             <NuxtLink to="/admin" class="shrink-0 group">
               <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center group-hover:bg-red-600 transition-colors">
-                  <div class="w-4 h-4 bg-red-600 rotate-45 group-hover:bg-white transition-colors"></div>
-                </div>
-                <span class="text-black font-black uppercase tracking-tighter text-xl">FruitFul Vine</span>
+                <span class="text-black font-black uppercase tracking-tighter text-xl">FruitFul Vine ADMIN</span>
               </div>
             </NuxtLink>
 
@@ -150,6 +147,6 @@ const isPathActive = (path: string) => {
 
 const handleSignOut = () => {
   localStorage.removeItem('FVTOKEN')
-  router.push('/admin/login')
+  router.push('/login')
 }
 </script>
