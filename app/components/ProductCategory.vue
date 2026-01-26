@@ -85,7 +85,7 @@
             <div class="flex items-center justify-between pt-5 border-t border-gray-100">
               <NuxtLink :to="`/products/${product._id}`" 
                  class="inline-flex items-center text-sm font-semibold text-red-600 hover:text-red-700 transition-colors group/link">
-                Explore collection
+                Explore Product
                 <svg class="ml-2 w-4 h-4 group-hover/link:translate-x-1 transition-transform duration-300" 
                      fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />

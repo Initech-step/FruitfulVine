@@ -92,7 +92,7 @@
               </div>
             </div>
             
-            <button class="w-full bg-black hover:bg-red-600 text-white py-6 rounded-2xl font-black uppercase tracking-widest transition-all duration-300 transform hover:scale-[1.02] shadow-2xl hover:shadow-red-500/30 flex items-center justify-center gap-4 group">
+            <button @click="openWhatsAppForProduct" class="w-full bg-black hover:bg-red-600 text-white py-6 rounded-2xl font-black uppercase tracking-widest transition-all duration-300 transform hover:scale-[1.02] shadow-2xl hover:shadow-red-500/30 flex items-center justify-center gap-4 group">
               Get This Product
               <svg class="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -123,6 +123,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 const { getUrl } = useApi()
+const WHATSAPP_NUMBER = '231887777364'
 
 interface Product {
   _id: string
@@ -139,6 +140,37 @@ const product = ref<Product | null>(null)
 const loading = ref(true)
 const activeImage = ref(0)
 let slideTimer: any = null
+
+
+const openWhatsAppForProduct = () => {
+  if (!product.value) return
+
+  const productName = product.value.product_name
+  const category = product.value.category_name
+  const description = product.value.short_description
+
+  const productUrl = `${window.location.origin}${route.fullPath}`
+
+  const message = `
+    Hello FruitFul Vine 👋
+
+    I’m interested in the following product:
+
+    Product: ${productName}
+    Category: ${category}
+    Description: ${description}
+
+    Please let me know the price and availability.
+
+    Product Link: ${productUrl}
+  `.trim()
+
+  const encodedMessage = encodeURIComponent(message)
+
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`
+
+  window.open(whatsappUrl, '_blank')
+}
 
 const startSlideShow = () => {
   stopSlideShow()

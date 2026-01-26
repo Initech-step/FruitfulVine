@@ -2,6 +2,7 @@
 <template>
   <div class="bg-base-100">
     <main>
+      <Header />
       <HeroSection />
       <OurServices />
       <ProductCategory no_of_products="6"/>

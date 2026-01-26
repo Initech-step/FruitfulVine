@@ -68,8 +68,18 @@
                   <h4 class="text-white font-bold mb-4 flex items-center gap-2 uppercase tracking-tighter">
                     <span class="w-8 h-[2px] bg-red-600"></span> Contact Info
                   </h4>
-                  <p class="text-gray-400 font-medium">support@fruitfulvine.com</p>
-                  <p class="text-white font-bold text-2xl mt-1">+148 589 2001 2466</p>
+                  <a 
+                    href="mailto:fruitfulvineglobal247@gmail.com" 
+                    class="group flex items-start text-gray-400 hover:text-red-500 transition-all duration-300"
+                  >
+                    <svg class="w-5 h-5 mr-3 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    <div>
+                      <div class="text-smalls text-gray-500 mb-0.5">Email</div>
+                      <span class="text-small font-medium break-all">fruitfulvineglobal247@gmail.com</span>
+                    </div>
+                  </a>
                 </div>
                 
                 <div>
@@ -77,8 +87,8 @@
                     <span class="w-8 h-[2px] bg-red-600"></span> Visit Us
                   </h4>
                   <address class="text-gray-400 not-italic leading-relaxed">
-                    Office 149, 450 South Brand Brooklyn<br />
-                    San Diego County, CA 91905, USA
+                   Shopping Plaza, Opp. GT Bank, Red Light,<br />
+                    Paynesville Liberia
                   </address>
                 </div>
               </div>
