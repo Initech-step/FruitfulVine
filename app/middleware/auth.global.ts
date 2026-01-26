@@ -1,7 +1,7 @@
 
 export default defineNuxtRouteMiddleware(async (to) => {
-  const url = "http://127.0.0.1:8000/api/validate_token/"
-  const urlb = ""
+  const url = "https://fruitfull-vine-backend.vercel.app/api/validate_token/"
+  const urlb = "http://127.0.0.1:8000/api/validate_token/"
 
   const isChecking = useAuthChecking() // Access our global switch
   console.log("Middleware ran")
