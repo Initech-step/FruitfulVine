@@ -80,6 +80,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+const { getUrl } = useApi()
 
 const props = defineProps({
   no_blog_posts: {
@@ -95,7 +96,7 @@ const fetchPosts = async () => {
   try {
     loading.value = true
     // Using props.no_blog_posts to set the 'limit' parameter in your API
-    const response = await fetch(`http://127.0.0.1:8000/api/blog/?page=1&limit=${props.no_blog_posts}`)
+    const response = await fetch(getUrl(`blog/?page=1&limit=${props.no_blog_posts}`))
     const data = await response.json()
     posts.value = data.blogs
   } catch (error) {

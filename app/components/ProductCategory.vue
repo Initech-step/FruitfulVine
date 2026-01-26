@@ -111,6 +111,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from 'vue';
+const { getUrl } = useApi()
 
 const props = defineProps({
   no_of_products: {
@@ -127,7 +128,7 @@ const autoPlayIntervals = ref([]);
 const fetchProducts = async () => {
   loading.value = true;
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/products/?page=1&limit=${props.no_of_products}`);
+    const response = await fetch(getUrl(`products/?page=1&limit=${props.no_of_products}`));
     const data = await response.json();
     products.value = data.products;
     

@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
-
+const { getUrl } = useApi()
 // Define the component props
 const props = defineProps({
     type: {
@@ -60,7 +60,7 @@ const fetchCategories = async () => {
     loading.value = true;
     try {
         // Appending the query parameter dynamically based on the prop
-        const url = `http://127.0.0.1:8000/api/category/?type=${props.type}`;
+        const url = getUrl(`category/?type=${props.type}`);
         
         const response = await fetch(url);
         if (!response.ok) throw new Error('API Error');

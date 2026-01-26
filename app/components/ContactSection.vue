@@ -119,6 +119,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
+const { getUrl } = useApi()
 
 const submitting = ref(false)
 const showSuccess = ref(false)
@@ -133,7 +134,7 @@ const form = reactive({
 const handleSubmit = async () => {
   submitting.value = true
   try {
-    const res = await fetch('http://127.0.0.1:8000/api/contact/', {
+    const res = await fetch(getUrl('contact/'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
