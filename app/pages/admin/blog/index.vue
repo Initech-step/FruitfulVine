@@ -70,7 +70,7 @@
               <div class="form-control">
                 <label class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/50 mb-2 block">Category</label>
                 <select v-model="form.category_name" @change="syncCategoryId" class="w-full bg-white/10 border border-white/10 rounded-xl py-3 px-4 text-xs font-bold text-white focus:border-red-600 outline-none">
-                  <option v-for="cat in categories" :key="cat.id" :value="cat.name" class="text-black">{{ cat.name }}</option>
+                  <option v-for="cat in categories" :key="cat._id" :value="cat.name" class="text-black">{{ cat.name }}</option>
                 </select>
               </div>
 
@@ -128,7 +128,7 @@ const fetchCategories = async () => {
     categories.value = data
     if (data.length > 0) {
       form.category_name = data[0].name
-      form.category_id = data[0].id
+      form.category_id = data[0]._id
     }
   } catch (err) {
     console.error("Failed to load categories", err)
@@ -137,7 +137,7 @@ const fetchCategories = async () => {
 
 const syncCategoryId = () => {
   const selected = categories.value.find(c => c.name === form.category_name)
-  if (selected) form.category_id = selected.id
+  if (selected) form.category_id = selected._id
 }
 
 const onFileChange = (e: any) => {
@@ -159,6 +159,9 @@ const handleBlogSubmit = async (isDraft: boolean) => {
   formData.append('short_title', form.short_title)
   formData.append('body', form.body)
   formData.append('draft', isDraft.toString())
+
+  console.log(form.category_id)
+  console.log(form.category_name)
   
   if (imageFile.value) {
     formData.append('image', imageFile.value)
