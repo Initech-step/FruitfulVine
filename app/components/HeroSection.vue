@@ -35,7 +35,7 @@
             <span class="block mb-2">Welcome to</span>
             <span class="relative inline-block">
               <span class="relative z-10 bg-gradient-to-r from-red-600 via-red-600 to-red-700 bg-clip-text text-transparent">
-                FruitFul Vine
+                FruitFul Vine Mobile Ltd.
               </span>
               <span class="absolute -bottom-2 left-0 w-full h-4 bg-red-100 -z-0 blur-sm"></span>
             </span>

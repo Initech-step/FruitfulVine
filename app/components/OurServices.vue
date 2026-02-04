@@ -30,12 +30,19 @@
 
 <script setup>
 import { CheckIcon } from '@heroicons/vue/20/solid'
+const WHATSAPP_NUMBER = '231887777364'
+const message = `
+    Hello FruitFul Vine 👋
+
+    I’m interested in your services,
+    let me know your availability.`.trim()
+const encodedMessage = encodeURIComponent(message)
 
 const tiers = [
   {
     name: 'Hardware Repairs',
     id: 'hardware-repairs',
-    href: '#',
+    href: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`,
     priceMonthly: 'Hardware',
     description: "The perfect plan if you're just getting started with our product.",
     features: [
@@ -52,7 +59,7 @@ const tiers = [
   {
     name: 'Software Services',
     id: 'software-services',
-    href: '#',
+    href: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`,
     priceMonthly: 'Software',
     description: 'Dedicated support and infrastructure for your company.',
     features: [
