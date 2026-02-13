@@ -10,39 +10,40 @@
       
       <div class="mx-auto max-w-3xl py-32 sm:py-40 lg:py-48">
         <!-- Announcement Badge -->
-        <div class="hidden sm:mb-10 sm:flex sm:justify-center">
-          <div class="relative group rounded-full px-4 py-2 text-sm leading-6 text-gray-600 ring-1 ring-gray-200 hover:ring-red-300 transition-all duration-300 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-md">
-            <span class="inline-flex items-center space-x-2">
-              <span class="flex h-2 w-2 relative">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
-              </span>
-              <span class="font-medium text-gray-900">Where Phones Come Back to Life</span>
-            </span>
-            <a href="#" class="font-semibold text-red-600 hover:text-red-700 ml-2 inline-flex items-center transition-colors">
-              <span aria-hidden="true" class="absolute inset-0 rounded-full"></span>
-              Learn more 
-              <svg class="ml-1 w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </a>
+        <div class="flex flex-col items-center gap-2 mb-10 sm:mb-12">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-100 border border-yellow-100/60 shadow-sm transition-all hover:border-yellow-400">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-black/70">
+              <path fill-rule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd" />
+            </svg>
+            <div class="flex items-center gap-1.5 text-[11px] sm:text-xs">
+              <span class="font-bold text-gray-700 text-black">Shopping Plaza, Opp. GT Bank, Red Light, Paynesville</span>
+            </div>
+          </div>
+
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-100 border border-yellow-100/60 shadow-sm transition-all hover:border-yellow-400">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3.5 h-3.5 text-black/70">
+              <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 6a.75.75 0 0 0-1.5 0v6c0 .414.336.75.75.75h4.5a.75.75 0 0 0 0-1.5h-3.75V6Z" clip-rule="evenodd" />
+            </svg>
+            <div class="flex items-center gap-1.5 text-[11px] sm:text-xs">
+              <span class="font-medium text-gray-700">9:00 AM – 11:00 PM</span>
+            </div>
           </div>
         </div>
 
         <!-- Main Hero Content -->
         <div class="text-center">
-          <h1 class="text-5xl font-black tracking-tight text-gray-900 sm:text-6xl lg:text-7xl mb-6">
-            <span class="block mb-2">Welcome to</span>
+          <h1 class="font-black text-5xl bg-gradient-to-r from-red-500 via-red-600 to-red-700 bg-clip-text text-transparent tracking-tight sm:text-6xl lg:text-7xl mb-6">
+            <span class="block mb-2">Fast & Reliable</span>
             <span class="relative inline-block">
-              <span class="relative z-10 bg-gradient-to-r from-red-600 via-red-600 to-red-700 bg-clip-text text-transparent">
-                FruitFul Vine Mobile Ltd.
+              <span class="relative z-10 font-black text-gray-900">
+                Phone Repair in Paynesville, Liberia.
               </span>
-              <span class="absolute -bottom-2 left-0 w-full h-4 bg-red-100 -z-0 blur-sm"></span>
+              <span class="absolute -bottom-2 left-0 w-full h-4 bg-red-200 -z-0 blur-sm"></span>
             </span>
           </h1>
           
           <p class="mt-8 text-lg sm:text-xl font-medium leading-8 text-gray-600 max-w-2xl mx-auto">
-            Your trusted partner for professional phone repairs and premium accessories. 
+            Broken screen? Battery draining fast? Software issues? At Fruitful Vine Mobile Ltd., we bring your phone back to life — quickly, affordably, and professionally.
             <span class="text-gray-900 font-semibold">Quality service</span>, 
             <span class="text-gray-900 font-semibold">expert care</span>, 
             delivered with passion.
@@ -76,13 +77,14 @@
 
           <!-- Feature Pills -->
           <div class="mt-12 flex flex-wrap items-center justify-center gap-4 text-sm">
+            
             <div class="flex items-center space-x-2 px-4 py-2 bg-white rounded-full border border-gray-200 shadow-sm">
               <div class="flex items-center justify-center w-5 h-5 rounded-full bg-red-100">
                 <svg class="w-3 h-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <span class="font-semibold text-gray-900">Expert Technicians</span>
+              <span class="font-semibold text-gray-900">Experienced & skilled technicians</span>
             </div>
             
             <div class="flex items-center space-x-2 px-4 py-2 bg-white rounded-full border border-gray-200 shadow-sm">
@@ -91,7 +93,7 @@
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <span class="font-semibold text-gray-900">Same-Day Service</span>
+              <span class="font-semibold text-gray-900">Fast turnaround time</span>
             </div>
             
             <div class="flex items-center space-x-2 px-4 py-2 bg-white rounded-full border border-gray-200 shadow-sm">
@@ -100,9 +102,30 @@
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                 </svg>
               </div>
-              <span class="font-semibold text-gray-900">Warranty Included</span>
+              <span class="font-semibold text-gray-900">Quality parts & tools</span>
             </div>
+
+            <div class="flex items-center space-x-2 px-4 py-2 bg-white rounded-full border border-gray-200 shadow-sm">
+              <div class="flex items-center justify-center w-5 h-5 rounded-full bg-red-100">
+                <svg class="w-3 h-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <span class="font-semibold text-gray-900">Affordable and honest pricing</span>
+            </div>
+
+            <div class="flex items-center space-x-2 px-4 py-2 bg-white rounded-full border border-gray-200 shadow-sm">
+              <div class="flex items-center justify-center w-5 h-5 rounded-full bg-red-100">
+                <svg class="w-3 h-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <span class="font-semibold text-gray-900">Trusted by customers across Paynesville & Monrovia</span>
+            </div>
+
           </div>
+
+          
         </div>
       </div>
 
