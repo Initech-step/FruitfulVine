@@ -77,7 +77,7 @@
                     </svg>
                     <div>
                       <div class="text-smalls text-gray-500 mb-0.5">Email</div>
-                      <span class="text-small font-medium break-all">fruitfulvineglobal247@gmail.com</span>
+                      <span class="text-small font-medium break-all">fruitfulvinemobile@gmail.com</span>
                     </div>
                   </a>
                 </div>
