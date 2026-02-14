@@ -198,24 +198,14 @@ let autoplayInterval: ReturnType<typeof setInterval> | null = null
 // Image data for carousel
 const images = ref([
   {
-    url: 'https://images.unsplash.com/photo-1556656793-08538906a9f8?w=800&h=600&fit=crop',
-    alt: 'Phone repair workshop',
-    caption: 'State-of-the-art repair facility'
+    url: '/img/owner.jpeg',
+    alt: 'Our CEO',
+    caption: 'Our CEO'
   },
   {
-    url: 'https://images.unsplash.com/photo-1609621838510-5ad474b7d25d?w=800&h=600&fit=crop',
-    alt: 'Skilled technician at work',
-    caption: 'Expert technicians at your service'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1531498681945-ccda2b79e7e5?w=800&h=600&fit=crop',
-    alt: 'Mobile accessories display',
-    caption: 'Quality parts and accessories'
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1512941675424-1c8d0ae2c079?w=800&h=600&fit=crop',
-    alt: 'Customer service',
-    caption: 'Dedicated to customer satisfaction'
+    url: '/img/prod.jpeg',
+    alt: 'Our Store 1',
+    caption: 'Our Store 1'
   }
 ])
 
