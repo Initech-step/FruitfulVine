@@ -41,11 +41,9 @@
 
           <div class="form-control">
             <label class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-4 block">Article Body</label>
-            <div class="relative group">
-              <div class="absolute left-[-20px] top-0 w-1 h-full bg-gray-100 group-focus-within:bg-red-600 transition-colors"></div>
-              <textarea v-model="form.body" rows="18" class="w-full bg-white text-xl leading-relaxed text-gray-700 font-serif focus:outline-none placeholder:text-gray-200 resize-none" placeholder="Start writing your story..."></textarea>
-            </div>
+            <RichTextEditor v-model="form.body" />
           </div>
+
         </div>
 
         <div class="lg:col-span-4 space-y-10">

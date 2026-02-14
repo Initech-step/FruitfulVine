@@ -16,6 +16,7 @@
 </template>
 
 <script setup lang="ts">
+
   import '@tailwindplus/elements';
 useHead({
   title: 'Fruitful Vine',

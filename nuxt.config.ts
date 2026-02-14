@@ -29,4 +29,8 @@ export default defineNuxtConfig({
       tailwindcss(),
     ],
   },
+  modules: ['nuxt-tiptap-editor'],
+  tiptap: {
+    prefix: 'Tiptap', //prefix for Tiptap imports, composables not included
+  }
 })

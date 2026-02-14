@@ -155,7 +155,8 @@ const fetchProducts = async () => {
 
 const fetchCategories = async () => {
   try {
-    const res = await fetch('http://127.0.0.1:8000/api/category/?type=product')
+    let url_cat = getUrl('category/?type=product')
+    const res = await fetch(url_cat)
     categoryList.value = await res.json()
   } catch (err) { console.error("Category fetch error") }
 }
@@ -164,7 +165,8 @@ const handleDelete = async (product: any) => {
   if (!confirm(`Permanently remove ${product.product_name} from inventory?`)) return
 
   try {
-    const res = await fetch(`http://127.0.0.1:8000/api/product/${product._id}/`, {
+    let url_del = getUrl(`product/${product._id}/`)
+    const res = await fetch(url_del, {
       method: 'DELETE',
       headers: {
         'token': "t7t7PWOxi='D0ov9iG&L+.I{K!x~8g0zr^M3v_P;g(vt,mX_Bg"

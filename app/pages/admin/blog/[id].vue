@@ -85,14 +85,11 @@
             </div>
 
             <div class="pt-10 border-t border-gray-100">
-              <div v-if="!isEditing" v-html="post.body" class="prose prose-xl max-w-none prose-p:text-gray-600 prose-p:leading-relaxed prose-strong:text-black font-serif"></div>
-              <textarea 
-                v-else 
-                v-model="post.body" 
-                rows="20" 
-                class="w-full bg-white border border-gray-100 rounded-3xl p-8 text-lg font-serif leading-relaxed text-gray-700 focus:ring-2 focus:ring-red-600 transition-all outline-none"
-              ></textarea>
+              <div v-if="!isEditing" v-html="post.body" class="prose prose-xl max-w-none prose-p:text-gray-600 prose-p:leading-relaxed prose-strong:text-black font-serif">
+              </div>
+              <RichTextEditor v-else v-model="post.body" />
             </div>
+
           </article>
         </div>
 
