@@ -196,7 +196,8 @@ const isScrolled = ref(false)
 const navLinks = [
   { name: 'Products', href: '/products' },
   { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/#contact-us' }
+  { name: 'Contact', href: '/#contact-us' },
+  { name: 'Our Services', href: '/ourservices' }
 ]
 
 // Handle scroll effect

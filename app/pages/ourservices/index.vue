@@ -3,12 +3,7 @@
   <div class="bg-base-100">
     <main>
       <Header />
-      <HeroSection />
-      <AboutUs />
-      <OurServices />
       <OurServicesDetail />
-      <ProductCategory no_of_products="6"/>
-      <HomePageBlog no_blog_posts="6"/>
       <ContactSection />
       <Footer />
     </main>
@@ -18,7 +13,7 @@
 <script setup lang="ts">
   import '@tailwindplus/elements';
 useHead({
-  title: 'Fruitful Vine',
+  title: 'Fruitful Vine Services',
   meta: [
     { name: 'description', content: 'Phone Care Experts' }
   ]
