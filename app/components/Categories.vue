@@ -4,17 +4,19 @@
             <div class="flex-1 overflow-x-auto no-scrollbar">
                 <ul class="flex gap-8 text-[10px] sm:text-xs font-bold uppercase tracking-[0.15em] text-gray-400 whitespace-nowrap">
                     <li 
-                        v-for="catName in categoryList" 
-                        :key="catName"
-                        @click="activeCategory = catName"
+                        v-for="cat in categoriesWithAll" 
+                        :key="cat.id || cat.name"
+                        @click="activeCategory = cat.name"
                         :class="[
                             'cursor-pointer py-4 transition-all duration-300 border-b-2 hover:text-black',
-                            activeCategory === catName 
+                            activeCategory === cat.name 
                                 ? 'text-red-600 border-red-600' 
                                 : 'border-transparent'
                         ]"
                     >
-                        {{ catName }}
+                        <NuxtLink :to="cat.link">
+                            {{ cat.name }}
+                        </NuxtLink> 
                     </li>
                     
                     <li v-if="loading" class="py-4 animate-pulse text-gray-200 uppercase tracking-widest text-[10px]">
@@ -38,11 +40,11 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, watch } from 'vue';
 const { getUrl } = useApi()
-// Define the component props
+
 const props = defineProps({
     type: {
         type: String,
-        default: 'blog', // Default to blog if no prop is provided
+        default: 'blog',
         required: false
     }
 });
@@ -51,17 +53,31 @@ const loading = ref(true);
 const categories = ref<any[]>([]);
 const activeCategory = ref('All Posts');
 
-const categoryList = computed(() => {
-    const names = categories.value.map(c => c.name);
-    return ['All Posts', ...names];
+// Computed property that includes both name and link
+const categoriesWithAll = computed(() => {
+    const baseUrl = props.type === 'blog' ? '/blog' : '/products';
+    
+    // "All Posts" item
+    const allPosts = {
+        id: null,
+        name: 'All Posts',
+        link: baseUrl
+    };
+    
+    // Map categories with their links
+    const mappedCategories = categories.value.map(cat => ({
+        id: cat._id,
+        name: cat.name,
+        link: `${baseUrl}/category/${cat._id}`
+    }));
+    
+    return [allPosts, ...mappedCategories];
 });
 
 const fetchCategories = async () => {
     loading.value = true;
     try {
-        // Appending the query parameter dynamically based on the prop
         const url = getUrl(`category/?type=${props.type}`);
-        
         const response = await fetch(url);
         if (!response.ok) throw new Error('API Error');
         const data = await response.json();
@@ -73,7 +89,6 @@ const fetchCategories = async () => {
     }
 };
 
-// Re-fetch if the type prop changes while the component is mounted
 watch(() => props.type, () => {
     fetchCategories();
 });
