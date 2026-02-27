@@ -93,7 +93,7 @@
             <h3 class="intro-heading">Fruitful Vine Mobile Ltd.</h3>
             <p class="intro-body">
               A professional phone repair and mobile accessories business located in the heart of
-              Paynesville, Liberia — passionate about helping people stay connected by restoring
+              Monrovia, Liberia — passionate about helping people stay connected by restoring
               their devices quickly and correctly.
             </p>
           </div>

@@ -163,7 +163,7 @@
                     </svg>
                   </div>
                   <address class="info-link-value not-italic">
-                    Shopping Plaza, Opp. GT Bank,<br/>Red Light, Paynesville, Liberia
+                    Shopping Plaza, Opp. GT Bank,<br/>Red Light, Morovia, Liberia
                   </address>
                 </div>
               </div>
