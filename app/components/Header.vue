@@ -311,7 +311,10 @@ onUnmounted(() => {
 
 /* ─── Mobile panel ───────────────────────────────────────────── */
 .mobile-panel {
-  background-color: var(--white);
+  background-color: #ffffff;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  isolation: isolate;
 }
 
 .mobile-panel-header {

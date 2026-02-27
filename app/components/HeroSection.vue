@@ -150,15 +150,15 @@ const features = [
   margin-left: auto;
   margin-right: auto;
   max-width: 48rem;
-  padding-top: 8rem;
+  padding-top: 4rem;
   padding-bottom: 8rem;
 }
 
 @media (min-width: 640px) {
-  .hero-container { padding-top: 10rem; padding-bottom: 10rem; }
+  .hero-container { padding-top: 5rem; padding-bottom: 10rem; }
 }
 @media (min-width: 1024px) {
-  .hero-container { padding-top: 12rem; padding-bottom: 12rem; }
+  .hero-container { padding-top: 5rem; padding-bottom: 12rem; }
 }
 
 /* ─── Gradient Blobs ────────────────────────────────────────── */
