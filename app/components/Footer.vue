@@ -168,11 +168,11 @@
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <!-- Copyright -->
           <div class="flex items-center gap-3">
-            <div class="logo-icon-wrap h-10 w-10 rounded-xl flex items-center justify-center">
-              <img 
-                src="https://res.cloudinary.com/dhsnrwwwn/image/upload/v1767946316/photo_2026-01-08_23-27-47-removebg-preview_isg5cj.png" 
-                alt="FruitFul Vine" 
-                class="h-6 w-auto"
+            <div class="logo-link group -m-1.5 p-1.5">
+              <img
+                src="https://res.cloudinary.com/ddilkwtzi/image/upload/v1772591136/uploads/fvlogo_red_avkkj8.png"
+                alt="FruitFul Vine"
+                class="logo-img"
               />
             </div>
             <div>
@@ -329,11 +329,6 @@
   border-top: 1px solid #1f2937;
 }
 
-/* ---------- Logo icon background ---------- */
-.logo-icon-wrap {
-  background-image: linear-gradient(to bottom right, #dc2626, #b91c1c);
-  box-shadow: 0 4px 16px 0 rgba(239, 68, 68, 0.20);
-}
 
 /* ---------- Copyright text ---------- */
 .footer-copyright-text {
@@ -398,5 +393,21 @@
 /* ---------- Smooth transitions ---------- */
 a {
   transition: color 0.3s, background-image 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  object-position: left center;
+  transition: opacity 0.2s, transform 0.25s;
+}
+.logo-link:hover .logo-img {
+  opacity: 0.85;
+  transform: scale(1.03);
 }
 </style>

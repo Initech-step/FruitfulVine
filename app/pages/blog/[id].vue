@@ -43,7 +43,7 @@
             <div class="post-author">
               <div class="author-avatar-wrap">
                 <img
-                  src="https://res.cloudinary.com/dhsnrwwwn/image/upload/v1768928451/FRUITFULL_LOGO-4_vujajv.png"
+                  src="https://res.cloudinary.com/ddilkwtzi/image/upload/v1772592575/uploads/WhatsApp_Image_2026-03-04_at_3.47.43_AM_zlmtmz.jpg"
                   alt="FruitFul Vine Editorial"
                   class="author-avatar"
                 />

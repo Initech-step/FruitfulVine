@@ -56,7 +56,7 @@
 
           <div class="relative mt-auto px-6 sm:px-8 py-5 bg-white/[0.02] border-t border-gray-800">
             <div class="flex items-center gap-x-4">
-              <img src="https://res.cloudinary.com/dhsnrwwwn/image/upload/v1768928451/FRUITFULL_LOGO-4_vujajv.png" 
+              <img src="https://res.cloudinary.com/ddilkwtzi/image/upload/v1772592575/uploads/WhatsApp_Image_2026-03-04_at_3.47.43_AM_zlmtmz.jpg" 
                    class="w-10 h-10 rounded-full bg-gray-800" />
               <div class="text-sm flex-1">
                 <p class="font-semibold text-white">Editorial Team</p>

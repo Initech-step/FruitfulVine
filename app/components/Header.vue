@@ -1,64 +1,56 @@
 <template>
-  <header :class="['header-root fixed inset-x-0 top-0 z-50 transition-all duration-300', isScrolled ? 'header-scrolled' : 'header-top']">
-    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex h-20 items-center justify-between">
+  <header :class="['header-root fixed inset-x-0 top-0 z-50 transition-all duration-300', isScrolled ? 'header-scrolled' : '']">
+    <nav class="nav-inner">
+      <div class="nav-row">
 
         <!-- Logo -->
-        <div class="flex lg:flex-1">
-          <NuxtLink to="/" class="logo-link group flex items-center space-x-3 -m-1.5 p-1.5">
-            <div class="logo-icon-wrap relative h-14 w-14 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 overflow-hidden">
-              <img
-                src="https://res.cloudinary.com/dhsnrwwwn/image/upload/v1767946316/photo_2026-01-08_23-27-47-removebg-preview_isg5cj.png"
-                alt="FruitFul Vine Logo"
-                class="h-11 w-auto object-contain relative z-10 transition-transform duration-300 group-hover:rotate-6"
-              />
-              <div class="logo-icon-sheen absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </div>
-            <div class="hidden sm:block">
-              <div class="logo-brand-name text-xl font-bold">FruitFul Vine</div>
-              <div class="logo-tagline text-xs font-medium -mt-0.5">Phone Care Experts</div>
-            </div>
+        <div class="logo-col">
+          <NuxtLink to="/" class="logo-link">
+            <img
+              src="https://res.cloudinary.com/ddilkwtzi/image/upload/v1772590526/uploads/fvlogo_black_cewt3f.png"
+              alt="FruitFul Vine"
+              class="logo-img"
+            />
+            <span class="logo-tagline">Phone Care Experts</span>
           </NuxtLink>
         </div>
 
         <!-- Desktop Navigation -->
-        <div class="hidden lg:flex lg:gap-x-1 lg:items-center">
+        <div class="desktop-nav">
           <NuxtLink
             v-for="link in navLinks"
             :key="link.name"
             :to="link.href"
-            class="nav-link relative px-5 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300 group"
+            class="nav-link group"
           >
-            <span class="relative z-10">{{ link.name }}</span>
-            <span class="nav-link-bar absolute bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-8 h-0.5 rounded-full transition-all duration-300"></span>
+            <span class="nav-link-text">{{ link.name }}</span>
+            <span class="nav-link-bar" aria-hidden="true"></span>
           </NuxtLink>
         </div>
 
         <!-- Desktop CTA -->
-        <div class="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-3">
-          <NuxtLink to="/login" class="login-link px-5 py-2.5 text-sm font-semibold rounded-xl transition-all duration-300">
-            Log in
-          </NuxtLink>
-          <NuxtLink to="/products" class="cta-btn group relative px-6 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 overflow-hidden">
-            <span class="relative z-10 flex items-center gap-2">
+        <div class="desktop-cta">
+          <NuxtLink to="/login" class="login-link">Log in</NuxtLink>
+          <NuxtLink to="/products" class="cta-btn group">
+            <span class="cta-btn-label">
               Our Products
-              <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="cta-btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </span>
-            <div class="cta-btn-hover absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="cta-btn-hover" aria-hidden="true"></div>
           </NuxtLink>
         </div>
 
         <!-- Mobile menu button -->
-        <div class="flex lg:hidden">
+        <div class="mobile-menu-col">
           <button
             type="button"
             @click="isMenuOpen = true"
-            class="mobile-menu-btn -m-2.5 inline-flex items-center justify-center rounded-xl p-2.5 transition-all duration-300 active:scale-95"
+            class="mobile-menu-btn"
             aria-label="Open main menu"
           >
-            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <svg class="hamburger-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
           </button>
@@ -78,12 +70,12 @@
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
-      <div v-if="isMenuOpen" class="fixed inset-0 z-50 lg:hidden">
+      <div v-if="isMenuOpen" class="mobile-overlay">
 
         <!-- Backdrop -->
-        <div class="mobile-backdrop fixed inset-0" @click="isMenuOpen = false" />
+        <div class="mobile-backdrop" @click="isMenuOpen = false" />
 
-        <!-- Panel -->
+        <!-- Slide-in panel -->
         <Transition
           enter-active-class="transition-transform duration-300 ease-out"
           enter-from-class="translate-x-full"
@@ -92,69 +84,65 @@
           leave-from-class="translate-x-0"
           leave-to-class="translate-x-full"
         >
-          <div v-if="isMenuOpen" class="mobile-panel fixed inset-y-0 right-0 w-full max-w-sm shadow-2xl">
-            <div class="flex h-full flex-col">
+          <div v-if="isMenuOpen" class="mobile-panel">
+            <div class="mobile-panel-inner">
 
-              <!-- Mobile header -->
-              <div class="mobile-panel-header flex items-center justify-between px-6 py-6 border-b">
-                <NuxtLink to="/" @click="isMenuOpen = false" class="flex items-center space-x-3">
-                  <div class="mobile-logo-wrap h-12 w-12 rounded-2xl flex items-center justify-center overflow-hidden">
-                    <img
-                      src="https://res.cloudinary.com/dhsnrwwwn/image/upload/v1767946316/photo_2026-01-08_23-27-47-removebg-preview_isg5cj.png"
-                      alt="Logo"
-                      class="h-8 w-auto"
-                    />
-                  </div>
-                  <span class="mobile-brand-name text-lg font-bold">FruitFul Vine</span>
+              <!-- Panel header -->
+              <div class="mobile-panel-header">
+                <NuxtLink to="/" @click="isMenuOpen = false" class="mobile-logo-link">
+                  <img
+                    src="https://res.cloudinary.com/ddilkwtzi/image/upload/v1772590526/uploads/fvlogo_black_cewt3f.png"
+                    alt="FruitFul Vine"
+                    class="mobile-logo-img"
+                  />
+                  <span class="mobile-logo-tagline">Phone Care Experts</span>
                 </NuxtLink>
                 <button
                   @click="isMenuOpen = false"
-                  class="mobile-close-btn p-2.5 rounded-xl transition-all duration-300 active:scale-95"
+                  class="mobile-close-btn"
                   aria-label="Close menu"
                 >
-                  <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <svg class="close-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
 
-              <!-- Mobile links -->
-              <div class="flex-1 overflow-y-auto px-6 py-6">
-                <div class="space-y-2">
-                  <NuxtLink
-                    v-for="link in navLinks"
-                    :key="link.name"
-                    :to="link.href"
-                    @click="isMenuOpen = false"
-                    class="mobile-nav-link group flex items-center justify-between rounded-xl px-4 py-4 text-base font-semibold transition-all duration-300"
-                  >
-                    <span>{{ link.name }}</span>
-                    <svg class="mobile-nav-arrow w-5 h-5 -rotate-90 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </NuxtLink>
-                </div>
+              <!-- Nav links -->
+              <div class="mobile-links-area">
+                <NuxtLink
+                  v-for="link in navLinks"
+                  :key="link.name"
+                  :to="link.href"
+                  @click="isMenuOpen = false"
+                  class="mobile-nav-link"
+                >
+                  <span>{{ link.name }}</span>
+                  <svg class="mobile-nav-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </NuxtLink>
+              </div>
 
-                <!-- Mobile CTAs -->
-                <div class="mobile-cta-area mt-8 space-y-3 pt-6 border-t">
-                  <NuxtLink
-                    to="/login"
-                    @click="isMenuOpen = false"
-                    class="mobile-login-btn flex items-center justify-center rounded-xl px-4 py-3.5 text-base font-bold border-2 transition-all duration-300 active:scale-98"
-                  >
-                    Log in
-                  </NuxtLink>
-                  <NuxtLink
-                    to="/products"
-                    @click="isMenuOpen = false"
-                    class="mobile-products-btn flex items-center justify-center gap-2 rounded-xl px-4 py-3.5 text-base font-bold transition-all duration-300 active:scale-98"
-                  >
-                    Our Products
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </NuxtLink>
-                </div>
+              <!-- Mobile CTAs -->
+              <div class="mobile-cta-area">
+                <NuxtLink
+                  to="/login"
+                  @click="isMenuOpen = false"
+                  class="mobile-login-btn"
+                >
+                  Log in
+                </NuxtLink>
+                <NuxtLink
+                  to="/products"
+                  @click="isMenuOpen = false"
+                  class="mobile-products-btn"
+                >
+                  Our Products
+                  <svg class="mobile-cta-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </NuxtLink>
               </div>
 
             </div>
@@ -192,191 +180,380 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-/* ============================================================
-   COLOR TOKENS — all hex / rgba, zero oklch
-   ============================================================ */
+/* ─── Color tokens — ALL hex/rgba, zero oklch ────────────────── */
 .header-root {
-  --white:           #ffffff;
-  --gray-50:         #f9fafb;
-  --gray-100:        #f3f4f6;
-  --gray-200:        #e5e7eb;
-  --gray-300:        #d1d5db;
-  --gray-400:        #9ca3af;
-  --gray-600:        #4b5563;
-  --gray-700:        #374151;
-  --gray-900:        #111827;
-
-  --red-50:          #fef2f2;
-  --red-100:         #fee2e2;
-  --red-200:         #fecaca;
-  --red-600:         #dc2626;
-  --red-700:         #b91c1c;
-  --red-800:         #991b1b;
-  --red-glow-30:     rgba(239,68,68,0.30);
-  --red-glow-50:     rgba(239,68,68,0.50);
-  --red-200-30:      rgba(254,202,202,0.50);
+  --white:        #ffffff;
+  --gray-50:      #f9fafb;
+  --gray-100:     #f3f4f6;
+  --gray-200:     #e5e7eb;
+  --gray-300:     #d1d5db;
+  --gray-400:     #9ca3af;
+  --gray-600:     #4b5563;
+  --gray-700:     #374151;
+  --gray-900:     #111827;
+  --red-50:       #fef2f2;
+  --red-100:      #fee2e2;
+  --red-600:      #dc2626;
+  --red-700:      #b91c1c;
+  --red-800:      #991b1b;
+  --red-glow-30:  rgba(239,68,68,0.30);
+  --red-glow-50:  rgba(239,68,68,0.50);
 }
 
-/* ─── Header shell ───────────────────────────────────────────── */
+/* ─── Base ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
 .header-root {
-  background-color: rgba(255,255,255,0.90);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  background-color: rgba(255,255,255,0.88);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(229,231,235,0.30);
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 .header-scrolled {
-  background-color: rgba(255,255,255,0.95);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  border-bottom-color: rgba(229,231,235,0.50);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  background-color: rgba(255,255,255,0.97);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-bottom-color: rgba(229,231,235,0.55);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+
+/* ─── Nav inner ──────────────────────────────────────────────── */
+.nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+@media (min-width: 640px)  { .nav-inner { padding: 0 1.5rem; } }
+@media (min-width: 1024px) { .nav-inner { padding: 0 2rem; } }
+
+.nav-row {
+  display: flex;
+  height: 72px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* ─── Logo ───────────────────────────────────────────────────── */
-.logo-icon-wrap {
-  background-image: linear-gradient(to bottom right, var(--red-50), var(--red-100));
-  border: 1px solid rgba(254,202,202,0.50);
-  box-shadow: none;
-  transition: box-shadow 0.3s, transform 0.3s;
+.logo-col { display: flex; flex: 1; }
+
+.logo-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  padding: 0.25rem 0;
+  text-decoration: none;
+  transition: opacity 0.2s;
 }
-.logo-link:hover .logo-icon-wrap {
-  box-shadow: 0 10px 30px var(--red-glow-30);
-}
-.logo-icon-sheen {
-  background-image: linear-gradient(to bottom right, rgba(255,255,255,0.40), transparent, rgba(220,38,38,0.20));
-}
-.logo-brand-name {
-  background-image: linear-gradient(to right, #dc2626, #b91c1c, #991b1b);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-.logo-tagline {
-  color: var(--gray-600);
+.logo-link:hover { opacity: 0.80; }
+
+.logo-img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
 }
 
-/* ─── Desktop nav links ──────────────────────────────────────── */
+.logo-tagline {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  padding-left: 1px;
+}
+
+/* ─── Desktop nav ────────────────────────────────────────────── */
+.desktop-nav {
+  display: none;
+  gap: 0.25rem;
+  align-items: center;
+}
+@media (min-width: 1024px) { .desktop-nav { display: flex; } }
+
 .nav-link {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 12px;
   color: var(--gray-700);
+  text-decoration: none;
+  transition: color 0.25s, background-color 0.25s;
 }
 .nav-link:hover {
   color: var(--red-600);
   background-color: rgba(254,242,242,0.80);
 }
-.nav-link-bar {
-  background-image: linear-gradient(to right, var(--red-600), var(--red-700));
-}
 
-/* ─── Desktop login link ─────────────────────────────────────── */
+.nav-link-text { position: relative; z-index: 1; }
+
+.nav-link-bar {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  border-radius: 9999px;
+  background-image: linear-gradient(90deg, #dc2626, #b91c1c);
+  transition: width 0.3s ease;
+}
+.nav-link:hover .nav-link-bar { width: 2rem; }
+
+/* ─── Desktop CTA ────────────────────────────────────────────── */
+.desktop-cta {
+  display: none;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  justify-content: flex-end;
+}
+@media (min-width: 1024px) { .desktop-cta { display: flex; } }
+
 .login-link {
+  padding: 0.6rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 12px;
   color: var(--gray-700);
+  text-decoration: none;
+  transition: color 0.25s, background-color 0.25s;
 }
 .login-link:hover {
   color: var(--red-600);
   background-color: rgba(243,244,246,0.80);
 }
 
-/* ─── Desktop CTA button ─────────────────────────────────────── */
 .cta-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.6rem 1.4rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 12px;
   color: var(--white);
-  background-image: linear-gradient(to right, var(--red-600), var(--red-700));
+  -webkit-text-fill-color: var(--white);
+  text-decoration: none;
+  background-image: linear-gradient(135deg, #dc2626, #b91c1c);
   box-shadow: 0 4px 16px var(--red-glow-30);
+  overflow: hidden;
+  transition: box-shadow 0.3s, transform 0.25s;
 }
 .cta-btn:hover {
   box-shadow: 0 8px 28px var(--red-glow-50);
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
+.cta-btn-label {
+  position: relative; z-index: 1;
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.cta-btn-icon {
+  width: 15px; height: 15px;
+  transition: transform 0.2s;
+}
+.cta-btn:hover .cta-btn-icon { transform: translateY(2px); }
 .cta-btn-hover {
-  background-image: linear-gradient(to right, var(--red-700), var(--red-800));
+  position: absolute; inset: 0;
+  background-image: linear-gradient(135deg, #b91c1c, #991b1b);
+  opacity: 0;
+  transition: opacity 0.3s;
 }
+.cta-btn:hover .cta-btn-hover { opacity: 1; }
 
-/* ─── Mobile hamburger button ────────────────────────────────── */
+/* ─── Mobile menu button ─────────────────────────────────────── */
+.mobile-menu-col { display: flex; }
+@media (min-width: 1024px) { .mobile-menu-col { display: none; } }
+
 .mobile-menu-btn {
-  color: var(--gray-700);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem;
+  border-radius: 12px;
   border: 1px solid transparent;
+  background: none;
+  cursor: pointer;
+  color: var(--gray-700);
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s, transform 0.15s;
 }
 .mobile-menu-btn:hover {
   color: var(--red-600);
   background-color: var(--red-50);
   border-color: var(--red-100);
 }
+.mobile-menu-btn:active { transform: scale(0.94); }
+.hamburger-icon { width: 24px; height: 24px; }
 
-/* ─── Mobile backdrop ────────────────────────────────────────── */
+/* ─── Mobile overlay ─────────────────────────────────────────── */
+.mobile-overlay {
+  position: fixed; inset: 0;
+  z-index: 50;
+}
+@media (min-width: 1024px) { .mobile-overlay { display: none; } }
+
 .mobile-backdrop {
-  background-color: rgba(0,0,0,0.50);
+  position: fixed; inset: 0;
+  background-color: rgba(0,0,0,0.48);
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
 
 /* ─── Mobile panel ───────────────────────────────────────────── */
 .mobile-panel {
+  position: fixed;
+  inset-y: 0; right: 0;
+  width: 100%;
+  max-width: 360px;
   background-color: #ffffff;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   isolation: isolate;
+  box-shadow: -8px 0 40px rgba(0,0,0,0.14);
 }
 
+.mobile-panel-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Panel header */
 .mobile-panel-header {
-  border-color: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.4rem 1.5rem;
+  border-bottom: 1px solid var(--gray-100);
 }
 
-.mobile-logo-wrap {
-  background-image: linear-gradient(to bottom right, var(--red-600), var(--red-700));
-  box-shadow: 0 4px 16px var(--red-glow-30);
+.mobile-logo-link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  text-decoration: none;
 }
-
-.mobile-brand-name {
-  color: var(--gray-900);
+.mobile-logo-img {
+  height: 38px;
+  width: auto;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+}
+.mobile-logo-tagline {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  padding-left: 1px;
 }
 
 .mobile-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem;
+  border-radius: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
   color: var(--gray-700);
+  transition: background-color 0.2s, transform 0.15s;
 }
-.mobile-close-btn:hover {
-  background-color: var(--gray-100);
+.mobile-close-btn:hover { background-color: var(--gray-100); }
+.mobile-close-btn:active { transform: scale(0.94); }
+.close-icon { width: 22px; height: 22px; }
+
+/* Nav links */
+.mobile-links-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
-/* ─── Mobile nav links ───────────────────────────────────────── */
 .mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
   color: var(--gray-900);
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
 }
 .mobile-nav-link:hover {
   background-color: var(--red-50);
   color: var(--red-600);
 }
 .mobile-nav-arrow {
+  width: 18px; height: 18px;
   color: var(--gray-400);
+  transition: color 0.2s, transform 0.2s;
 }
 .mobile-nav-link:hover .mobile-nav-arrow {
   color: var(--red-600);
+  transform: translateX(2px);
 }
 
-/* ─── Mobile CTA area ────────────────────────────────────────── */
+/* Mobile CTAs */
 .mobile-cta-area {
-  border-color: var(--gray-100);
+  padding: 1rem 1rem 2rem;
+  border-top: 1px solid var(--gray-100);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
 }
 
 .mobile-login-btn {
-  color: var(--gray-900);
-  border-color: var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: 2px solid var(--gray-200);
   background-color: transparent;
+  color: var(--gray-900);
+  text-decoration: none;
+  transition: border-color 0.2s, background-color 0.2s, transform 0.15s;
 }
 .mobile-login-btn:hover {
   border-color: var(--gray-300);
   background-color: var(--gray-50);
 }
+.mobile-login-btn:active { transform: scale(0.98); }
 
 .mobile-products-btn {
-  color: var(--white);
-  background-image: linear-gradient(to right, var(--red-600), var(--red-700));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  background-image: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  text-decoration: none;
   box-shadow: 0 4px 16px var(--red-glow-30);
+  transition: box-shadow 0.25s, transform 0.15s;
 }
-.mobile-products-btn:hover {
-  box-shadow: 0 8px 28px var(--red-glow-50);
-}
-
-/* ─── Scale utilities ────────────────────────────────────────── */
-.active\:scale-95:active  { transform: scale(0.95); }
-.active\:scale-98:active  { transform: scale(0.98); }
+.mobile-products-btn:hover { box-shadow: 0 8px 24px var(--red-glow-50); }
+.mobile-products-btn:active { transform: scale(0.98); }
+.mobile-cta-arrow { width: 17px; height: 17px; flex-shrink: 0; }
 </style>
